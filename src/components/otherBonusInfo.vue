@@ -7,14 +7,16 @@ export default {
     }
 }
 </script>
-<template>
-    <div>
 
-    </div>
+<template>
+    <h1>otherBonusInfo.vue</h1>
 </template>
 
 
 
 <style lang="scss" scoped>
-
+h1{
+    text-align: center;
+    color: #FFF;
+}
 </style>
