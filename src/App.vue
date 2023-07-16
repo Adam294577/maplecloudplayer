@@ -1,6 +1,9 @@
 <script>
-import axios from 'axios';
-// import HelloWorld from '@/components/HelloWorld.vue'
+import { ref , reactive , computed , onMounted } from 'vue';
+
+
+import { useStore } from 'vuex';
+
 import BossMenu from '@/components/BossMenu.vue'
 import sectionTagBox from '@/components/sectionTagBox.vue'
 
@@ -11,8 +14,8 @@ import bossBonus from '@/components/bossBonus.vue'
 import bossData from '@/components/bossData.vue'
 import bossIntro from '@/components/bossIntro.vue'
 import damageRef from '@/components/damageRef.vue'
+import axios from 'axios';
 
-import { ref , reactive , computed , onMounted } from 'vue';
 export default {
   components:{
     // nav
@@ -28,22 +31,24 @@ export default {
 
     },
   setup () {
-    const BossSelected = ref("露希妲");
-    const SectionSelected = ref("bossIntro");
-    const GradeSelected  = ref("hard");
+    const store = useStore();
 
-    const getBossSelected  = (bossName) =>{
-      BossSelected.value = bossName;
-      console.log(BossSelected.value);
-    }
-    const getGradeSelected = (bossGrade)=>{
-      GradeSelected.value =  bossGrade;
-      console.log(GradeSelected.value);
-    }
-    const getSectionSelected = (sectionVal) =>{
-      SectionSelected.value = sectionVal
-      console.log(SectionSelected.value);
-    }
+    const BossSelected = computed(()=> store.getters.BossSelected)
+    const SectionSelected = computed(()=> store.getters.SectionSelected)
+    const GradeSelected = computed(()=> store.getters.GradeSelected)
+
+    // const getBossSelected  = (bossName) =>{
+    //   BossSelected.value = bossName;
+    //   console.log(BossSelected.value);
+    // }
+    // const getGradeSelected = (bossGrade)=>{
+    //   GradeSelected.value =  bossGrade;
+    //   console.log(GradeSelected.value);
+    // }
+    // const getSectionSelected = (sectionVal) =>{
+    //   SectionSelected.value = sectionVal
+    //   console.log(SectionSelected.value);
+    // }
 
     const BossInfo = reactive({
             "data" : {
@@ -274,61 +279,61 @@ export default {
         });   
         
 
-    const GradeList = ref(BossInfo.data[BossSelected.value].GradeList)
-    const GradeListbool = ref(false)
-    const handGradeMenu = () =>{
-            GradeListbool.value = !GradeListbool.value;
-        }    
-        const handGradeVal = (el) =>{
-            GradeSelected.value = el.currentTarget.dataset.alt;
-            GradeListbool.value = false;
-            // emit
-        }        
-        const GradeVal = computed(()=>{
-            const Grade =  GradeList.value.filter(item=>{
-                return item.alt === GradeSelected.value
-            })
-            return Grade[0]
+    // const GradeList = ref(BossInfo.data[BossSelected.value].GradeList)
+    // const GradeListbool = ref(false)
+    // const handGradeMenu = () =>{
+    //         GradeListbool.value = !GradeListbool.value;
+    //     }    
+    //     const handGradeVal = (el) =>{
+    //         GradeSelected.value = el.currentTarget.dataset.alt;
+    //         GradeListbool.value = false;
+    //         // emit
+    //     }        
+    //     const GradeVal = computed(()=>{
+    //         const Grade =  GradeList.value.filter(item=>{
+    //             return item.alt === GradeSelected.value
+    //         })
+    //         return Grade[0]
             
-        })
+    //     })
 
-        const showGradeList = computed(()=>{
+    //     const showGradeList = computed(()=>{
 
-            const Map = GradeList.value.map(item=>{
-             if(item.alt === GradeSelected.value){
-                 return { url: item.urlact , alt: item.alt}
-             }else{
-                 return { url: item.url , alt: item.alt}
-             }
-            })
+    //         const Map = GradeList.value.map(item=>{
+    //          if(item.alt === GradeSelected.value){
+    //              return { url: item.urlact , alt: item.alt}
+    //          }else{
+    //              return { url: item.url , alt: item.alt}
+    //          }
+    //         })
            
-            return Map;
+    //         return Map;
     
-         })            
+    //      })      
+         
+         
+    const init = () =>{
+        store.dispatch("handInit")
+    }
     
     onMounted(() => {
-      axios.get('/assets/api/mapleBossInfo.json')
-      .catch((res)=>{
-        console.log(res);
+        init()
       })
-      .then((err)=>{
-        console.error("沒接到api");
-      })
-    })
 
     return {
-      getBossSelected,
-      getGradeSelected,
-      getSectionSelected,
-      SectionSelected,
+    //   getBossSelected,
+    //   getGradeSelected,
+    //   getSectionSelected,
+    //   SectionSelected,
     }
   }
 }
 </script>
 
 <template>
-<BossMenu @bossName="getBossSelected" @bossGrade="getGradeSelected"/>
-<sectionTagBox @sectionVal="getSectionSelected"/>
+<!-- <BossMenu @bossName="getBossSelected" @bossGrade="getGradeSelected"/> -->
+<BossMenu/>
+<!-- <sectionTagBox @sectionVal="getSectionSelected"/> -->
 
 <main class="bossContainer">
 <bossIntro />

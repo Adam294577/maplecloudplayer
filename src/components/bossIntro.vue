@@ -1,21 +1,36 @@
 <script>
+import {computed, ref ,onMounted } from 'vue';
+import { useStore } from 'vuex';
+
 export default {
-    props:{
-        propsTest:{
-            type: String,
-            default: "只是測試的字串"
-        }
-    },
     setup (props) {
+        const store = useStore();
+    const bossNameArr = ["梅格耐斯","凡雷恩","希拉","阿卡伊農","西格諾斯","森蘭丸","卡翁","殘暴炎魔","闇黑龍王","皮卡啾","比艾樂","斑斑","血腥皇后","貝倫","戴米安","使烏","露希妲","威爾","守護天使綠水靈","戴斯克","頓凱爾","真希拉","黑魔法師","受選的賽蓮","監視者卡洛斯","拉圖斯","巴洛古","濃姬"]
+    const bannerData = []
+    const importBannerData = ()=>{
+        let img = ""
+        bossNameArr.forEach(item=>{
+            img =  require(`@/assets/boss/banner/banner_${item}.png`)
+            bannerData.push({key:item, url:img })
+        })
+    }
+    importBannerData()
+    const BannerImg = ref(bannerData[0].url)
+    console.log(BannerImg.value);
+    const bannerRender = computed(()=>{
+        const bossName = store.getters.BossSelected
+        const a = bannerData.filter(item=>{
+            return item.key === bossName
+        })
+        console.log(a[0].url);
+        BannerImg.value = a[0].url
+        return BannerImg.value
+    })
+    
 
-    // const bosstxtData = ref(BossInfo.data[BossNameSelected.value].bossIntro.bosstxt)
 
-    // const bosstxtRender = computed(()=>{
-    //         const filterGrade = bosstxtData.value.filter(item=>{
-    //             return item.Grade === GradeSelected.value
-    //         })
-    //         return filterGrade
-    //     })    
+    onMounted(() => {
+    })
 
         
 
@@ -24,7 +39,9 @@ export default {
 
 
         return {
-            props
+            props,
+            bannerRender,
+            BannerImg
         }
     }
 }
@@ -32,7 +49,7 @@ export default {
 
 <template>
 <!-- <section  v-show="sectioncont[0].open" class="bossIntro"> -->
-<section class="bossIntro">
+<section class="bossIntro" :data-test="bannerRender">
 
 <!-- <ul class="GradeList">
     <li @click= "handGradeMenu" id="GradeVal">
@@ -54,9 +71,8 @@ export default {
 
 <div class="content">
     <div class="bossImg">
-        <!-- <img :src="banner" alt="123"> -->
-        <img src="banner.png" alt="這是Banner">
-        <img src="@/assets/boss/banner_使烏.png" alt="">
+        <img :src="BannerImg" alt="123">
+        <!-- <img src="@/assets/boss/banner/banner_使烏.png" alt=""> -->
     </div>
     <div class="bosstxt">
         <!-- <ul class="bosstxtList">
