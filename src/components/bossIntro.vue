@@ -16,13 +16,13 @@ export default {
     }
     importBannerData()
     const BannerImg = ref(bannerData[0].url)
-    console.log(BannerImg.value);
+    // console.log(BannerImg.value);
     const bannerRender = computed(()=>{
         const bossName = store.getters.BossSelected
         const a = bannerData.filter(item=>{
             return item.key === bossName
         })
-        console.log(a[0].url);
+        // console.log(a[0].url);
         BannerImg.value = a[0].url
         return BannerImg.value
     })
@@ -71,7 +71,7 @@ export default {
 
 <div class="content">
     <div class="bossImg">
-        <img :src="BannerImg" alt="123">
+        <img :src="BannerImg" alt="">
         <!-- <img src="@/assets/boss/banner/banner_使烏.png" alt=""> -->
     </div>
     <div class="bosstxt">

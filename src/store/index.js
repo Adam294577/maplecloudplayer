@@ -6,6 +6,9 @@ export default createStore({
     BossSelected: "露希妲",
     SectionSelected: "bossIntro",
     GradeSelected: "hard",
+    Activitybool: false,
+    
+
   },
   actions: {
     handInit({commit}){
@@ -17,12 +20,32 @@ export default createStore({
       .catch(err=>{
         console.error("沒接到API");
       })
+    },
+    getNavData({commit}){
+      const url = '/bossGrade.json';
+      return axios.get(url)
+      .then(res=>{
+        commit('getNavData', res.data)
+        return res.data
+      })
+      .catch(err=>{
+        console.error("沒接到NavData");
+      })
+    },
+    handActivitybool({commit}){
+      commit('handActivitybool')
     }
 
   },
   mutations: {
     init(state , ApiData){
-      console.log(ApiData.data);
+      // console.log(ApiData[0].data);
+    },
+    getNavData(state,NavData){
+
+    },
+    handActivitybool(state){
+      state.Activitybool = !state.Activitybool
     }
   },
   getters: {
@@ -35,6 +58,10 @@ export default createStore({
     GradeSelected(state){
       return state.GradeSelected;
     },
+    Activitybool(state){
+      return state.Activitybool;
+    }
+
 
 
   },  

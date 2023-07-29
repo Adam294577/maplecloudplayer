@@ -1,6 +1,7 @@
 
 <script>
-import { ref , computed, reactive } from 'vue';
+import { ref , computed, reactive , onMounted, watch} from 'vue';
+import { useStore } from 'vuex';
 
 // page頁數圖片
 import navPage1  from '@/assets/symbol/page01.png';
@@ -13,52 +14,62 @@ import rightarrow1 from '@/assets/symbol/yellow右箭頭.png';
 import leftarrow2 from '@/assets/symbol/yellow左箭頭.png'; 
 import rightarrow2 from '@/assets/symbol/gray右箭頭.png'; 
 
-
 export default {
-    emits:{
-        bossName: (bossName)  =>{
-            let bossArr = ["殘暴炎魔","梅格耐斯","希拉","森蘭丸","卡翁",
-            "拉圖斯","比艾樂","斑斑","血腥皇后","貝倫","凡雷恩","闇黑龍王","阿卡伊農",
-            "皮卡啾","西格諾斯","使烏","戴米安","守護天使綠水靈","露希妲","威爾","戴斯克",
-            "真希拉","頓凱爾","黑魔法師","受選的賽蓮","監視者卡洛斯","烏勒斯","巴洛古","濃姬",
-            "培羅德"
-        ]
-            return bossArr.includes(bossName.value) ? true : false
-        },
-        bossGrade: (bossGrade)=>{
-            let GradeArr = ["easy","normal","hard","chaos","extreme"];
-            return GradeArr.includes(bossGrade.value) ? true : false;
-        }
-
-    },
-    props:{
-        navPage1 :{
-            type : String,
-            default: '@/assets/symbol/page01.png'
-        },
-        navPage2 :{
-            type : String,
-            default: '@/assets/symbol/page02.png'
-        },
-        leftarrow1: {
-            type: String,
-            default: '@/assets/symbol/gray左箭頭.png'
-        },
-        rightarrow1: {
-            type: String,
-            default: '@/assets/symbol/yellow右箭頭.png'
-        },
-        leftarrow2: {
-            type: String,
-            default: '@/assets/symbol/yellow左箭頭.png'
-        },
-        rightarrow2: {
-            type: String,
-            default: '@/assets/symbol/gray右箭頭.png'
-        },
-       
-    },
     setup (props,{ emit }) {
+        const store = useStore();
+        // 先載入全部nav相關圖片 (不含符號)
+        const bossNameArr = ["梅格耐斯","凡雷恩","希拉","阿卡伊農","西格諾斯","森蘭丸","卡翁","殘暴炎魔","闇黑龍王","皮卡啾","比艾樂","斑斑","血腥皇后","貝倫","戴米安","使烏","露希妲","威爾","守護天使綠水靈","戴斯克","頓凱爾","真希拉","黑魔法師","受選的賽蓮","監視者卡洛斯","拉圖斯","巴洛古","濃姬"]
+        const AllGrade = ["easy","normal","hard","chaos","extreme"]
+        const NavBossImg = reactive([])
+        const NavGradeImg = reactive([])
+        const ImportNavImg = ()=>{
+            AllGrade.forEach(item=>{
+                let img =""
+                img = require(`@/assets/NavList/grade_${item}.png`)
+                NavGradeImg.push({key: item , url: img})
+            })
+            
+
+            bossNameArr.forEach(item=>{
+            let img = ""
+            img =  require(`@/assets/NavList/list_${item}.png`)
+            NavBossImg.push({key:item, url:img })
+        })            
+
+        }
+        ImportNavImg()
+        // console.log(NavGradeImg);
+        // console.log(NavBossImg);
+        // navData
+        const BossGradeData = reactive({data:[{key:""}]})
+
+        const NavData = ref([])
+        const getNavData = () =>{
+            store.dispatch("getNavData").then(res=>{
+                NavData.value = res[0].data
+                console.log(NavData.value);
+                console.log(NavBossImg);
+                console.log(NavGradeImg);
+            })
+        }
+        
+        const NavListRender = computed(()=>{
+            let i = -1
+            const a = NavData.value.map(item=>{
+                i++;
+                return {
+                    page: item.page, 
+                    name: item.key,
+                    // url: `${bossListURL.value}${item.key}.png`,
+                    Grade: item.Grade
+                }
+                
+            })
+            console.log(a);
+            return 0
+        })          
+
+
         // NavMenuOpen
         const NavBool = ref(false);
         const handNavBool = () =>{
@@ -67,9 +78,6 @@ export default {
         const NavWidth = computed(()=>{
             return NavBool.value ? 0 : "-500px";
         })
-
-
-
          // NavPageCh
         const NavPageidx = ref(navPage1)
         const NavContidx = ref(1)
@@ -121,10 +129,17 @@ export default {
         const getBossVal = (el) =>{
             bossName.value = el.target.dataset.bossname;
             bossGrade.value = el.target.alt;
-            emit("bossName",bossName);
-            emit("bossGrade",bossGrade);
+            // emit("bossName",bossName);
+            // emit("bossGrade",bossGrade);
+        
             NavBool.value = !NavBool.value;
+            
         }
+
+        onMounted(() => {
+            getNavData()  
+        })
+      
 
 
         return {
@@ -139,6 +154,14 @@ export default {
             handNavPage,
             wheelpage,
             getBossVal,
+
+            // navData
+            NavListRender,
+            
+
+            // test
+            NavBossImg
+            
         }
 
         
@@ -148,7 +171,8 @@ export default {
 
 
 <template>
-        <div class="menu">
+        <!-- <img :src="NavBossImg[7].url" alt=""> -->
+        <div class="menu" :data-test="NavListRender">
             <span @click="handNavBool" id="bossMenuBtn" class="btntxt act">Boss</span>
 
             <nav @wheel= "wheelpage"  class="pcNav" :style="{left: NavWidth}">
@@ -166,366 +190,36 @@ export default {
                         </div>
                     </span>
 
-
                     <ul class="pageinfo">
-                        <!-- 每頁最多17筆 -->
-                        <div class="pagecont">
-                            <div v-show= "NavContidx === 1" class="page1">
                             <li class="infoItem">
-                            
-                            <span class="bossImg">
-                                    <img src="@/assets/boss/list_殘暴炎魔.png" alt="">
-                            </span>
-            
-                            <span class="bossGrade">
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="殘暴炎魔" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="殘暴炎魔" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="殘暴炎魔" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                            </span>
-                            </li>
-                            <li class="infoItem">
-                            
-                            <span class="bossImg">
-                                    <img src="@/assets/boss/list_梅格耐斯.png" alt="">
-                            </span>
-            
-                            <span class="bossGrade">
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="梅格耐斯" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="梅格耐斯" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="梅格耐斯" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                            </span>
-                            </li>
-                            <li class="infoItem">
-
+                
                                 <span class="bossImg">
-                                        <img src="@/assets/boss/list_希拉.png" alt="">
+                                        <img src="@/assets/NavList/list_露希妲.png" alt="">
                                 </span>
-                            
+                
                                 <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="希拉" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="希拉" src="@/assets/boss/grade_hard.png" alt="hard"></span>
+                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="使烏" src="@/assets/NavList/grade_easy.png" alt="easy"></span>
+                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="使烏" src="@/assets/NavList/grade_normal.png" alt="normal"></span>
+                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="使烏" src="@/assets/NavList/grade_hard.png" alt="hard"></span>
                                 </span>
                             </li>
-                            <li class="infoItem">
-
+                            <!-- <li class="infoItem" 
+                            v-for="list in NavListRender"
+                            :key="list.key"
+                            v-show="list.page === NavPageidx"
+                            >
+                
                                 <span class="bossImg">
-                                        <img src="@/assets/boss/list_森蘭丸.png" alt="">
+                                        <img :src="list.url" :alt="list.key">
                                 </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="森蘭丸" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="森蘭丸" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img  src="@/assets/boss/list_卡翁.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="卡翁" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_拉圖斯.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="拉圖斯" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="拉圖斯" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="拉圖斯" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_比艾樂.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="比艾樂" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="比艾樂" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_斑斑.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="斑斑" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="斑斑" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_血腥皇后.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="血腥皇后" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="血腥皇后" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_貝倫.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="貝倫" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="貝倫" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_凡雷恩.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="凡雷恩" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="凡雷恩" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="凡雷恩" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_闇黑龍王.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="闇黑龍王" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="闇黑龍王" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="闇黑龍王" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_阿卡伊農.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="阿卡伊農" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="阿卡伊農" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_皮卡啾.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="皮卡啾" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="皮卡啾" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_西格諾斯.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="西格諾斯" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="西格諾斯" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_使烏.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="使烏" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="使烏" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_戴米安.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="戴米安" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="戴米安" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                </span>
-                            </li>                             
-                        </div>
-
-                        <div v-show= "NavContidx === 2" class="page2">
-                            <li class="infoItem">
-                            
-                            <span class="bossImg">
-                                    <img src="@/assets/boss/list_守護天使綠水靈.png" alt="">
-                            </span>
-            
-                            <span class="bossGrade">
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="守護天使綠水靈" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="守護天使綠水靈" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                            </span>
-                            </li>
-                            <li class="infoItem">
-                            
-                            <span class="bossImg">
-                                    <img src="@/assets/boss/list_露希妲.png" alt="">
-                            </span>
-            
-                            <span class="bossGrade">
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="露希妲" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="露希妲" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="露希妲" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                            </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_威爾.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="威爾" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="威爾" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="威爾" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_戴斯克.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="戴斯克" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="戴斯克" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img  src="@/assets/boss/list_真希拉.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="真希拉" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="真希拉" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_頓凱爾.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="頓凱爾" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="頓凱爾" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_黑魔法師.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="黑魔法師" src="@/assets/boss/grade_hard.png" alt="hard"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="黑魔法師" src="@/assets/boss/grade_extreme.png" alt="extreme"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_受選的賽蓮.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="受選的賽蓮" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="受選的賽蓮" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="受選的賽蓮" src="@/assets/boss/grade_extreme.png" alt="extreme"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_監視者卡洛斯.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="監視者卡洛斯" src="@/assets/boss/grade_chaos.png" alt="chaos"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_烏勒斯.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="烏勒斯" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_巴洛古.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="巴洛古" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_濃姬.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="濃姬" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                </span>
-                            </li>
-                            <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_培羅德.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="培羅德" src="@/assets/boss/grade_normal.png" alt="normal"></span>
-                                </span>
-                            </li>
-                            <!-- <li class="infoItem">
-
-                                <span class="bossImg">
-                                        <img src="@/assets/boss/list_阿卡伊農.png" alt="">
-                                </span>
-                            
-                                <span class="bossGrade">
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="阿卡伊農" src="@/assets/boss/grade_easy.png" alt="easy"></span>
-                                    <span class="GradeItem"><img @click= "getBossVal" class="GradeImg" data-bossname="阿卡伊農" src="@/assets/boss/grade_normal.png" alt="normal"></span>
+                
+                                <span class="bossGrade"
+                                v-for="Grade in list.Grade"
+                                >
+                                <span class="GradeItem"><img @click= "chbossNameTest" class="GradeImg" :data-bossname="Grade.bossname" :src="Grade.url" :alt="Grade.key"></span>
                                 </span>
                             </li> -->
-                           
-                        </div>
-                        </div>
-
-       
-                       
-                    </ul>
+                        </ul>
                     
                     <div class="pagelist">
                         <span class="backbtn">
