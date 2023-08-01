@@ -1,10 +1,21 @@
 
 
 <script>
-import { reactive , ref } from 'vue';
-
+import { onMounted, reactive , ref } from 'vue';
+import moment from 'moment';
+moment().format();
 export default {
     setup () {
+      // moment JS
+      let nowtime = moment().format("HH:mm"); 
+      const nowTime = ref(nowtime)
+      const timerun = ()=>{
+          nowtime = moment().format("HH:mm"); 
+          nowTime.value = nowtime
+          // console.log(nowTime.value);
+      }
+      setInterval(timerun,1000) 
+           
       // 聊天類別圖片載入
       const channelImg = reactive({data:[]})
       
@@ -16,12 +27,20 @@ export default {
         }
       }
       ImportChannelImg()
-      // 先載入預設類別
       const channelSelected = ref([{}])
-      channelSelected.value[0].key = channelImg.data[0].key
-      channelSelected.value[0].url = channelImg.data[0].url
-      channelSelected.value[0].urlAct = channelImg.data[0].urlAct
-      
+      const updateChannelSelected = (key = 'c1') =>{
+         // c0r:系統頻紅 c0y:系統頻黃 c1:所有頻 c2:隊伍頻  c3:好友頻 c4:公會頻 c5:聯盟頻
+      let arr = channelImg.data.filter(item=>{
+        if(key === item.key){
+          return {key:item.key, url: item.url, urlAct: item.urlAct}
+        }
+      })
+      channelSelected.value[0].key = arr[0].key
+      channelSelected.value[0].url = arr[0].url
+      channelSelected.value[0].urlAct = arr[0].urlAct        
+      }      
+     
+
         // 滑鼠經過頻道類別 切換hover圖
       const MouseinChannel = (el) =>{
         let key = el.currentTarget.dataset.channel;
@@ -45,7 +64,10 @@ export default {
       // 之後改vuex傳遞 取消這bool
       const closeChannelListbool = () =>{
         ChannelListbool.value = false;
-      }       
+      }     
+      
+      
+      
 
       const handchatChannel = (el) =>{
         if(!ChannelListbool.value){
@@ -53,16 +75,82 @@ export default {
           return;
         }
         let key = el.currentTarget.dataset.channel;
-        let arr = channelImg.data.filter(item=>{
-          if(key === item.key){
-            return {key:item.key, url: item.url, urlAct: item.urlAct}
-          }
-        })
-        channelSelected.value[0].key = arr[0].key
-        channelSelected.value[0].url = arr[0].url
-        channelSelected.value[0].urlAct = arr[0].urlAct
+        updateChannelSelected(key)
+        // let arr = channelImg.data.filter(item=>{
+        //   if(key === item.key){
+        //     return {key:item.key, url: item.url, urlAct: item.urlAct}
+        //   }
+        // })
+        // channelSelected.value[0].key = arr[0].key
+        // channelSelected.value[0].url = arr[0].url
+        // channelSelected.value[0].urlAct = arr[0].urlAct
         ChannelListbool.value = false
       }    
+      // msgData.push({class: msgChannel.value , msg: inputmsg.value, userID: `${game_id.value} :`, time : `<span class="symbol">[</span>${nowTime.value}<span class="symbol">]</span>`} )
+      const chatMsg = ref('')
+      const txtSummit = (el) => {
+                let str = el.target.value.trim()
+                let key = ''
+
+                // console.log(str);
+                if (el.keyCode === 13 & str === "/f"){
+                    key = 'c3'
+                    updateChannelSelected(key)
+                    el.target.value = ""
+                    return;
+                }
+
+                if (el.keyCode === 13 & str === "/p"){
+                  key = 'c2'
+                    updateChannelSelected(key)
+                    el.target.value = ""
+                    return;
+                }
+                if (el.keyCode === 13 & str === "/g"){
+                    key = 'c4'
+                    updateChannelSelected(key)
+                    el.target.value = ""
+                    return;
+                }
+                if (el.keyCode === 13 & str === "/u"){
+                    key = 'c5'
+                    updateChannelSelected(key)
+                    el.target.value = ""
+                    return;
+                }
+                if (el.keyCode === 13 & str === "/e"){
+                    key = 'c1'
+                    updateChannelSelected(key)
+                    el.target.value = ""
+                    return;
+                }
+                if (el.keyCode === 13 & str.slice(0,1) === "/"){
+                    console.log("這是特殊字元:文字不會傳到聊天窗");
+                    el.target.value = "";
+                    return;
+                }
+    
+                // if (el.keyCode === 13 & str !== ""){
+                //     inputmsg.value = el.target.value
+                //     msgData.push({class: msgChannel.value , msg: inputmsg.value, userID: `${game_id.value} :`, time : `<span class="symbol">[</span>${nowTime.value}<span class="symbol">]</span>`} )
+                //     RingChatshow(RingChatbool.value)
+                //     el.target.value = ""
+
+                //     // 因為msgStorage還沒先產出 所以要非同步進行
+                //     setTimeout(Msgscrolldown,10)
+                //     return;
+                // }
+                if (el.keyCode === 13 & str !== ""){
+                  chatMsg.value = el.target.value;
+                  el.target.value = ""
+
+                }
+            }    
+            
+        onMounted(()=>{
+          // 先載入頻道類別
+          updateChannelSelected()
+        })
       
 
 
@@ -72,6 +160,8 @@ export default {
           MouseOutChannel,
           ChannelListbool,
           handchatChannel,
+          // txtSummit
+          txtSummit
         }
     }
 }
@@ -104,7 +194,9 @@ export default {
                     <li @click="handchatChannel" data-channel="c5" class="item">對聯盟<span>(/u)</span></li> 
                     <li @click="handchatChannel" data-channel="c1" class="item">對所有人<span>(/e)</span></li> 
                 </ul>
-                <input id="userinput" type="text" maxlength="20">
+                <input 
+                @keyup="txtSummit"
+                id="userinput" type="text" maxlength="20">
                 <div class="ChatImg">
                    <img src="@/assets/RingProject/bar_icon_01.png" alt="01" class="Imgitem">
                    <img src="@/assets/RingProject/bar_icon_02.png" alt="02" class="Imgitem">
