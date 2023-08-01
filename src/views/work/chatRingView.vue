@@ -35,13 +35,14 @@ export default {
 .ChatSyscontainer{
   background-size: cover;
   // background-attachment: fixed;
+  background-image: url(~@/assets/RingProject/map/map01.png);
   background-repeat: no-repeat;
   position: relative;
   top: 50px;
   width: 800px;
   height: 600px;
   margin: 0 auto;
-  background: #FFF;
+  // background: #FFF;
 }
 @media (max-width: 992px) { 
     .ChatSyscontainer{

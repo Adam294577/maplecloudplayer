@@ -1,11 +1,78 @@
 
 
 <script>
+import { reactive , ref } from 'vue';
+
 export default {
     setup () {
-        
+      // 聊天類別圖片載入
+      const channelImg = reactive({data:[]})
+      
+      const ImportChannelImg = () =>{
+        for (let i = 1; i <= 5; i++) {
+          let url = require(`@/assets/RingProject/chat_class_c${i}.png`)          
+          let urlAct = require(`@/assets/RingProject/chat_class_c${i}_h.png`)          
+          channelImg.data.push({key:`c${i}`,url:url, urlAct:urlAct})
+        }
+      }
+      ImportChannelImg()
+      // 先載入預設類別
+      const channelSelected = ref([{}])
+      channelSelected.value[0].key = channelImg.data[0].key
+      channelSelected.value[0].url = channelImg.data[0].url
+      channelSelected.value[0].urlAct = channelImg.data[0].urlAct
+      
+        // 滑鼠經過頻道類別 切換hover圖
+      const MouseinChannel = (el) =>{
+        let key = el.currentTarget.dataset.channel;
+        if(key === channelSelected.value[0].key){
+          el.currentTarget.src = channelSelected.value[0].urlAct;
+          return
+        }
+      }
+      const MouseOutChannel = (el) => {
+        let key = el.currentTarget.dataset.channel;
+        if(key === channelSelected.value[0].key){
+          el.currentTarget.src = channelSelected.value[0].url;
+          return
+        }
+      }      
+      // 頻道類別顯示
+      const ChannelListbool = ref(false);
 
-        return {}
+
+
+      // 之後改vuex傳遞 取消這bool
+      const closeChannelListbool = () =>{
+        ChannelListbool.value = false;
+      }       
+
+      const handchatChannel = (el) =>{
+        if(!ChannelListbool.value){
+          ChannelListbool.value = true;
+          return;
+        }
+        let key = el.currentTarget.dataset.channel;
+        let arr = channelImg.data.filter(item=>{
+          if(key === item.key){
+            return {key:item.key, url: item.url, urlAct: item.urlAct}
+          }
+        })
+        channelSelected.value[0].key = arr[0].key
+        channelSelected.value[0].url = arr[0].url
+        channelSelected.value[0].urlAct = arr[0].urlAct
+        ChannelListbool.value = false
+      }    
+      
+
+
+        return {
+          channelSelected,
+          MouseinChannel,
+          MouseOutChannel,
+          ChannelListbool,
+          handchatChannel,
+        }
     }
 }
 </script>
@@ -23,13 +90,19 @@ export default {
                 </div>
             </div>
             <div class="ChatClass">
-                <img class="channelImg" src="@/assets/RingProject/chat_class_c1.png" alt="">
-                <ul id="ChatClassList"  class=" class_ch_list" v-show="false" >
-                    <li class="item">對好友<span>(/f)</span></li> 
-                    <li class="item">對組隊<span>(/p)</span></li> 
-                    <li class="item">對公會<span>(/g)</span></li> 
-                    <li class="item">對聯盟<span>(/u)</span></li> 
-                    <li class="item">對所有人<span>(/e)</span></li> 
+                <img 
+                :data-channel="channelSelected[0].key" 
+                class="channelImg" :src="channelSelected[0].url" 
+                @mouseenter="MouseinChannel"
+                @mouseleave="MouseOutChannel"
+                @click="handchatChannel"
+                alt="">
+                <ul id="ChatClassList"  class=" class_ch_list" v-show="ChannelListbool" >
+                    <li @click="handchatChannel" data-channel="c3" class="item">對好友<span>(/f)</span></li> 
+                    <li @click="handchatChannel" data-channel="c2" class="item">對組隊<span>(/p)</span></li> 
+                    <li @click="handchatChannel" data-channel="c4" class="item">對公會<span>(/g)</span></li> 
+                    <li @click="handchatChannel" data-channel="c5" class="item">對聯盟<span>(/u)</span></li> 
+                    <li @click="handchatChannel" data-channel="c1" class="item">對所有人<span>(/e)</span></li> 
                 </ul>
                 <input id="userinput" type="text" maxlength="20">
                 <div class="ChatImg">
