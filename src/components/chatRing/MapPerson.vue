@@ -1,22 +1,30 @@
 
 
 <script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
     setup () {
-        
-
-        return {}
+      const store = useStore();
+      const game_id = computed(()=>store.getters.game_id)
+      const chat_msg = computed(()=>store.getters.chat_msg)
+      const MapMsgbool = computed(()=>store.getters.MapMsgbool)
+        return {
+          game_id,
+          chat_msg,
+          MapMsgbool
+        }
     }
 }
 </script>
 <template>
-    <div class="ringContainer person">
-        <div class="chatring mode00">
+    <div class="ringContainer person" v-show="MapMsgbool">
+        <div class="chatring mode00" >
             <div class="chat_outline">
                 <div class="txt_container">
                     <div class="Txtcontent">
-                        <span class="idBox">{{"game_id"}}</span> 
-                        <span ref="msgRef" class="txt">{{"inputmsg"}}</span>
+                        <span class="idBox">{{game_id}}</span> 
+                        <span ref="msgRef" class="txt">{{chat_msg}}</span>
                     </div>
                 </div>
             </div>

@@ -1,14 +1,53 @@
 <script>
 import PersonBox from '@/components/chatRing/PersonBox.vue'
+import { computed, onUpdated, ref } from 'vue';
+import { useStore } from 'vuex';
 export default {
     components:{
         PersonBox,
     },
     setup () {
+      const store = useStore();
+
+      const game_id = computed(()=>store.getters.game_id)
+      const handGameID = (el) =>{
+        store.dispatch('handGameID',el.target.value)
+      }
+      // ID字數限制
+      const gameIDcount = ref(0)
+      const gameIDAlert = ref(false)
+      function checkInput(el) {
+        
+        let punctuationCount = (el.target.value.match(/[\p{P}\u2000-\u206F\u2E00-\u2E7F\u3000-\u303F]/gu)|| []).length;
+        let symbolCount = (el.target.value.match(/[\p{S}\u2070-\u209F\u20A0-\u20CF\u2100-\u214F]/gu)|| []).length;
+        let whitespaceCount = (el.target.value.match(/[\p{Z}\u0009-\u000D\u0020]/gu)|| []).length;
+        let chinesesymbolCount = (el.target.value.match(/[\u3105-\u3129\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9\u02c7\u02cb\u02ca\u02d9\u02da\u02dc\u02c9]/g
+        ) || []).length; 
+        if(chinesesymbolCount !== 0 || whitespaceCount !== 0 || symbolCount !== 0 || punctuationCount !== 0 ){
+            gameIDAlert.value = true
+        }else{
+            gameIDAlert.value = false
+        }
+        let chineseCount = (el.target.value.match(/[\u4e00-\u9fa5]/g) || []).length;
+        let englishCount = (el.target.value.match(/[a-zA-Z]/g) || []).length; 
+        let numberCount = (el.target.value.match(/[0-9]/g) || []).length; 
+
+        gameIDcount.value =  numberCount + chineseCount * 2 + englishCount;
+        // 字符數4~12才正常
+        if(gameIDcount.value <= 3 || gameIDcount.value >= 13){
+            gameIDAlert.value = true
+        }
+  
+      }      
+      
+
         
 
         return {
-            PersonBox,
+          game_id,
+          handGameID,
+          checkInput,
+          gameIDAlert,
         }
     }
 }
@@ -35,13 +74,16 @@ export default {
     </div>    
     <div class="question q3">
         <h1>3.輸入ID</h1>
-        <input id="game_id_input">
+        <input 
+        @input="handGameID"
+        @keyup="checkInput"
+        v-model="game_id">
         <!-- <input @keyup="checkInput"
          v-model = "game_id" 
          id="game_id_input" 
          type="text" placeholder="輸入角色名稱"> -->
         <div class="alertbox">
-            <p class="IDalert">ID不符合遊戲規則!</p>
+            <p class="IDalert" v-show="gameIDAlert">ID不符合遊戲規則!</p>
         </div>
     </div>    
     <div class="RWDremind">

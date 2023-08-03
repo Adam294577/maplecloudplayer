@@ -1,20 +1,15 @@
 
 
 <script>
-import { onMounted, reactive , ref } from 'vue';
+import { computed, onMounted, reactive , ref } from 'vue';
 import moment from 'moment';
+import { useStore } from 'vuex';
+import interact from 'interactjs'
 moment().format();
 export default {
     setup () {
-      // moment JS
-      let nowtime = moment().format("HH:mm"); 
-      const nowTime = ref(nowtime)
-      const timerun = ()=>{
-          nowtime = moment().format("HH:mm"); 
-          nowTime.value = nowtime
-          // console.log(nowTime.value);
-      }
-      setInterval(timerun,1000) 
+      const store = useStore();
+
            
       // 聊天類別圖片載入
       const channelImg = reactive({data:[]})
@@ -57,37 +52,19 @@ export default {
         }
       }      
       // 頻道類別顯示
-      const ChannelListbool = ref(false);
-
-
-
-      // 之後改vuex傳遞 取消這bool
-      const closeChannelListbool = () =>{
-        ChannelListbool.value = false;
-      }     
-      
-      
-      
-
+      const ChannelListbool = computed(()=>store.getters.ChannelListbool)
       const handchatChannel = (el) =>{
+        console.log(ChannelListbool.value);
         if(!ChannelListbool.value){
-          ChannelListbool.value = true;
+          store.dispatch('ChannelListOpen')
           return;
         }
         let key = el.currentTarget.dataset.channel;
         updateChannelSelected(key)
-        // let arr = channelImg.data.filter(item=>{
-        //   if(key === item.key){
-        //     return {key:item.key, url: item.url, urlAct: item.urlAct}
-        //   }
-        // })
-        // channelSelected.value[0].key = arr[0].key
-        // channelSelected.value[0].url = arr[0].url
-        // channelSelected.value[0].urlAct = arr[0].urlAct
-        ChannelListbool.value = false
+        store.dispatch('ChannelListCancel')
       }    
-      // msgData.push({class: msgChannel.value , msg: inputmsg.value, userID: `${game_id.value} :`, time : `<span class="symbol">[</span>${nowTime.value}<span class="symbol">]</span>`} )
-      const chatMsg = ref('')
+      const nowTime = computed(()=> store.getters.nowTime)
+     
       const txtSummit = (el) => {
                 let str = el.target.value.trim()
                 let key = ''
@@ -129,39 +106,85 @@ export default {
                     el.target.value = "";
                     return;
                 }
-    
-                // if (el.keyCode === 13 & str !== ""){
-                //     inputmsg.value = el.target.value
-                //     msgData.push({class: msgChannel.value , msg: inputmsg.value, userID: `${game_id.value} :`, time : `<span class="symbol">[</span>${nowTime.value}<span class="symbol">]</span>`} )
-                //     RingChatshow(RingChatbool.value)
-                //     el.target.value = ""
-
-                //     // 因為msgStorage還沒先產出 所以要非同步進行
-                //     setTimeout(Msgscrolldown,10)
-                //     return;
-                // }
                 if (el.keyCode === 13 & str !== ""){
-                  chatMsg.value = el.target.value;
-                  el.target.value = ""
+                  store.dispatch('updateTime')
+                  store.dispatch('MsgTransToSys',channelSelected.value[0].key)
+                  store.dispatch('handMapMsgbool')
+                  
+                  console.log(msgStorage.value);
+                  el.target.value = "";
+                  // 因為msgStorage還沒先產出 所以要非同步進行
+                  setTimeout(Msgscrolldown,10)                  
 
                 }
-            }    
+            }   
+            
+      // Msg
+      const msgStorage = computed(()=> store.getters.msgStorage)
+      const Msgscrolldown = ()=>{
+                let txtscroll = document.getElementById("txtscroll")
+                txtscroll.scrollTop = txtscroll.scrollHeight
+            }      
+      const handMsg = (el) =>{
+        store.dispatch('MsgTransToMap',el.target.value);
+      }
+      
             
         onMounted(()=>{
           // 先載入頻道類別
           updateChannelSelected()
+          // 先載入系統訊息
+          store.dispatch('RenderSysMsg')
+          // 讓系統聊天窗能夠抓取移動
+          function dragMoveListener (event) {
+                    let target = event.target
+                    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+                    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+                    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+                    target.setAttribute('data-x', x)
+                    target.setAttribute('data-y', y)
+                    }
+                    window.dragMoveListener = dragMoveListener
+                interact(ChatContainer)
+                    .draggable({
+                      inertia: false,
+                      autoScroll: true,
+                      modifiers: [
+                        interact.modifiers.snap({
+                          targets: [
+                            interact.snappers.grid({ x: 25, y: 25 })
+                          ],
+                          range: Infinity,
+                          relativePoints: [ { x: 0, y: 0 } ]
+                        }),
+                    
+                        interact.modifiers.restrict({
+                          // restriction: element.parentNode,
+                          restriction: 'parent',
+                          elementRect: { top: -3, left: 0, bottom: 1, right: 1 },
+                          endOnly: false
+                        })
+                      ],
+                      listeners: {
+                          move: dragMoveListener,
+                        }
+                    })             
         })
       
 
 
         return {
+          nowTime,
           channelSelected,
           MouseinChannel,
           MouseOutChannel,
           ChannelListbool,
           handchatChannel,
           // txtSummit
-          txtSummit
+          txtSummit,
+          // msg
+          handMsg,
+          msgStorage,
         }
     }
 }
@@ -176,7 +199,14 @@ export default {
                     <img class="zoomoutImg" src="@/assets/RingProject/zoom_out_icon.png" alt="縮小">
                 </div>
                 <div class="txtContent" id="txtscroll">
-                    <span class="msg c1"></span>
+                    <span 
+                    :key= "list.msg"
+                    v-for="list in msgStorage"
+                    :class="[ 'msg' , list.class ]"
+                    >
+                      {{ list.time }} {{ list.userID }} : {{ list.msg }}
+                    </span>
+                    
                 </div>
             </div>
             <div class="ChatClass">
@@ -185,7 +215,7 @@ export default {
                 class="channelImg" :src="channelSelected[0].url" 
                 @mouseenter="MouseinChannel"
                 @mouseleave="MouseOutChannel"
-                @click="handchatChannel"
+                @click.stop="handchatChannel"
                 alt="">
                 <ul id="ChatClassList"  class=" class_ch_list" v-show="ChannelListbool" >
                     <li @click="handchatChannel" data-channel="c3" class="item">對好友<span>(/f)</span></li> 
@@ -196,6 +226,7 @@ export default {
                 </ul>
                 <input 
                 @keyup="txtSummit"
+                @input="handMsg"
                 id="userinput" type="text" maxlength="20">
                 <div class="ChatImg">
                    <img src="@/assets/RingProject/bar_icon_01.png" alt="01" class="Imgitem">

@@ -2,6 +2,10 @@
 import MapPerson from '@/components/chatRing/MapPerson.vue'
 import Chatsys from '@/components/chatRing/Chatsys.vue'
 import CustomItem from '@/components/chatRing/CustomItem.vue'
+
+
+
+import { useStore } from 'vuex';
 export default {
     components:{
         MapPerson,
@@ -9,16 +13,21 @@ export default {
         CustomItem,
     },
     setup () {
-        
+      const store = useStore();
+      const ChannelListCancel = () =>{
+        store.dispatch('ChannelListCancel')
+
+      }
 
         return {
+          ChannelListCancel
         }
     }
 }
 </script>
 
 <template>
-<div class="ChatSyscontainer">
+<div class="ChatSyscontainer" @click="ChannelListCancel">
 <MapPerson />
 <Chatsys />
 <CustomItem />
