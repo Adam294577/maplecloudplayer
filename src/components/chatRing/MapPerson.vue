@@ -9,17 +9,19 @@ export default {
       const game_id = computed(()=>store.getters.game_id)
       const chat_msg = computed(()=>store.getters.chat_msg)
       const MapMsgbool = computed(()=>store.getters.MapMsgbool)
+      const RingSelected = computed(()=>store.getters.RingSelected)
         return {
           game_id,
           chat_msg,
-          MapMsgbool
+          MapMsgbool,
+          RingSelected
         }
     }
 }
 </script>
 <template>
     <div class="ringContainer person" v-show="MapMsgbool">
-        <div class="chatring mode00" >
+        <div :class="['chatring',RingSelected.mode]" >
             <div class="chat_outline">
                 <div class="txt_container">
                     <div class="Txtcontent">
@@ -112,7 +114,7 @@ export default {
 }
 
   // 無
-  .mode00{
+  .mode0{
     position: absolute;
     top: -65px;
     left: -10px;
@@ -180,7 +182,7 @@ export default {
     }
   }   
   // 貓咪線球
-  .mode01{
+  .mode1{
     position: absolute;
     top: -100px;
     left: -40px;
@@ -257,7 +259,7 @@ export default {
     }
   }  
   // 蝴蝶夢
-  .mode02{
+  .mode2{
     position: absolute;
     top: -105px;
     left: -50px;
@@ -333,7 +335,7 @@ export default {
     }
   }   
   // 粉貓貓
-  .mode03{
+  .mode3{
     position: absolute;
     top: -86px;
     left: -35px;
@@ -409,7 +411,7 @@ export default {
     }
   }     
   // 黑貓貓
-  .mode04{
+  .mode4{
     position: absolute;
     top: -86px;
     left: -35px;
@@ -485,7 +487,7 @@ export default {
     }
   }     
   // 夢幻兔
-  .mode05{
+  .mode5{
     position: absolute;
     top: -53px;
     left: -25px;

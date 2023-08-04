@@ -21,6 +21,8 @@ export default createStore({
     msgStorage:[],
     ChannelListbool: false,
     MapMsgbool: false,
+    RingSelected: {key:'',url:'',mode:''},
+    RingNavBool : false
 
   
     
@@ -77,8 +79,13 @@ export default createStore({
     },   
     handMapMsgbool({commit}) {
       commit('handMapMsgbool')
+    },
+    RingChange({commit},ringData){
+      commit('RingChange',ringData)
+    },
+    handRingNavBool({commit},txt){
+      commit('handRingNavBool',txt)
     }
-
 
   },
   mutations: {
@@ -115,6 +122,23 @@ export default createStore({
       if(state.MapMsgbool) return
       state.MapMsgbool = true
       setTimeout(() => {state.MapMsgbool = false}, 5000);
+    },
+    RingChange(state,ringData){
+      state.RingSelected.key = ringData[0].key;
+      state.RingSelected.url = ringData[0].url;
+      state.RingSelected.mode = ringData[0].mode;
+      console.log(state.RingSelected);
+    },
+    handRingNavBool(state,txt){
+      if(state.RingNavBool===true && txt==='selected' ){
+        state.RingNavBool = false
+        return
+      }
+      if(txt==='close' ){
+        state.RingNavBool = false
+        return
+      }
+      state.RingNavBool = true
     }
 
   },
@@ -149,6 +173,12 @@ export default createStore({
     },
     MapMsgbool(state){
       return state.MapMsgbool;
+    },
+    RingSelected(state){
+      return state.RingSelected;
+    },
+    RingNavBool(state){
+      return state.RingNavBool;
     }
 
 

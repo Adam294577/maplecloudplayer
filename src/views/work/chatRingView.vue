@@ -2,6 +2,7 @@
 import MapPerson from '@/components/chatRing/MapPerson.vue'
 import Chatsys from '@/components/chatRing/Chatsys.vue'
 import CustomItem from '@/components/chatRing/CustomItem.vue'
+import RingNavbar from '@/components/chatRing/RingNavbar.vue'
 
 
 
@@ -11,6 +12,7 @@ export default {
         MapPerson,
         Chatsys,
         CustomItem,
+        RingNavbar
     },
     setup () {
       const store = useStore();
@@ -28,6 +30,7 @@ export default {
 
 <template>
 <div class="ChatSyscontainer" @click="ChannelListCancel">
+<RingNavbar />
 <MapPerson />
 <Chatsys />
 <CustomItem />

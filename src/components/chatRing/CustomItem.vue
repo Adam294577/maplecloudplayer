@@ -10,6 +10,7 @@ export default {
       const store = useStore();
 
       const game_id = computed(()=>store.getters.game_id)
+      const RingSelected = computed(()=>store.getters.RingSelected)
       const handGameID = (el) =>{
         store.dispatch('handGameID',el.target.value)
       }
@@ -38,7 +39,12 @@ export default {
             gameIDAlert.value = true
         }
   
-      }      
+      }   
+      const handRingNavBool = (el)=>{
+        let txt = el.currentTarget.dataset.ring
+        console.log(txt);
+        store.dispatch('handRingNavBool',txt)
+      }
       
 
         
@@ -48,6 +54,8 @@ export default {
           handGameID,
           checkInput,
           gameIDAlert,
+          RingSelected,
+          handRingNavBool,
         }
     }
 }
@@ -57,35 +65,35 @@ export default {
 <div class="CustomContainer">
     <div class="question q1">
         <h1>1.選擇聊天戒指</h1>                
-        <li class="itemSelected" data-ring="selected">
+        <li class="itemSelected" data-ring="selected"
+        @click="handRingNavBool"
+        >
             <img 
-            src="@/assets/RingProject/ring/黑貓貓.png" 
+            :src="RingSelected.url" 
             alt="" >
-            <span class="noneImg">黑貓貓</span>
+            <span :class="{'noneImg' : RingSelected.key === '無'}">{{RingSelected.key}}</span>
         </li>
     </div>    
+    <div class="question q3">
+        <h1>2.輸入ID</h1>
+        <input 
+        @input="handGameID"
+        @keyup="checkInput"
+        v-model="game_id"
+        placeholder="輸入角色名稱"
+        >
+        <div class="alertbox">
+            <p class="IDalert" v-show="gameIDAlert">ID不符合遊戲規則!</p>
+        </div>
+    </div>    
     <div class="question q2">
-              <h1>2.選擇喜歡的角色圖</h1>
+              <h1>3.選擇喜歡的角色圖</h1>
               <div class="personSelected">
                 <img 
                 src="@/assets/RingProject/role/cos7.png"
                 alt="">
               </div>
-    </div>    
-    <div class="question q3">
-        <h1>3.輸入ID</h1>
-        <input 
-        @input="handGameID"
-        @keyup="checkInput"
-        v-model="game_id">
-        <!-- <input @keyup="checkInput"
-         v-model = "game_id" 
-         id="game_id_input" 
-         type="text" placeholder="輸入角色名稱"> -->
-        <div class="alertbox">
-            <p class="IDalert" v-show="gameIDAlert">ID不符合遊戲規則!</p>
-        </div>
-    </div>    
+    </div>       
     <div class="RWDremind">
     <PersonBox />
         <span>建議使用電腦版測試!</span>
@@ -127,6 +135,7 @@ export default {
       line-height: 45px;
       user-select: none;
       position: relative;
+      height: 60px;
       &:after{
         display: none;
         content: url(~@/assets/RingProject/symbal/arrow.png);
@@ -140,11 +149,15 @@ export default {
         margin-left: 10px;
       }
       span{
-        position: relative;
-        top: -5px;
+        // position: relative;
+        // top: -5px;
+        // padding-left: 20px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         padding-left: 20px;
         &.noneImg{
-          top: 0;
+          padding-left: 35px;
         }
       }
   }
