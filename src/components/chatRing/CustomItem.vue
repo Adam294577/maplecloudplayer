@@ -11,6 +11,7 @@ export default {
 
       const game_id = computed(()=>store.getters.game_id)
       const RingSelected = computed(()=>store.getters.RingSelected)
+      const RoleSelected = computed(()=>store.getters.RoleSelected)
       const handGameID = (el) =>{
         store.dispatch('handGameID',el.target.value)
       }
@@ -45,6 +46,10 @@ export default {
         console.log(txt);
         store.dispatch('handRingNavBool',txt)
       }
+      const handpersonBoxBool = (el) =>{
+        let txt = el.currentTarget.dataset.txt
+        store.dispatch('handpersonBoxBool',txt)
+      }      
       
 
         
@@ -55,7 +60,9 @@ export default {
           checkInput,
           gameIDAlert,
           RingSelected,
+          RoleSelected,
           handRingNavBool,
+          handpersonBoxBool,
         }
     }
 }
@@ -88,14 +95,17 @@ export default {
     </div>    
     <div class="question q2">
               <h1>3.選擇喜歡的角色圖</h1>
-              <div class="personSelected">
+              <div 
+              @click="handpersonBoxBool"
+              class="personSelected">
                 <img 
-                src="@/assets/RingProject/role/cos7.png"
+                :src="RoleSelected.url"
                 alt="">
               </div>
     </div>       
-    <div class="RWDremind">
     <PersonBox />
+    <div class="RWDremind">
+      
         <span>建議使用電腦版測試!</span>
     </div>    
 </div>

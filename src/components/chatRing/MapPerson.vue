@@ -10,18 +10,23 @@ export default {
       const chat_msg = computed(()=>store.getters.chat_msg)
       const MapMsgbool = computed(()=>store.getters.MapMsgbool)
       const RingSelected = computed(()=>store.getters.RingSelected)
+      const RoleSelected = computed(()=>store.getters.RoleSelected)
         return {
           game_id,
           chat_msg,
           MapMsgbool,
-          RingSelected
+          RingSelected,
+          RoleSelected
         }
     }
 }
 </script>
 <template>
-    <div class="ringContainer person" v-show="MapMsgbool">
-        <div :class="['chatring',RingSelected.mode]" >
+    <div class="ringContainer person" 
+    :data-test="personSelected"
+    :style="{'background-image': `url(${RoleSelected.url})`}"
+    >
+        <div :class="['chatring',RingSelected.mode]" v-show="MapMsgbool">
             <div class="chat_outline">
                 <div class="txt_container">
                     <div class="Txtcontent">
@@ -43,7 +48,7 @@ export default {
   left: 362px;
   width: 70px;
   height: 90px;
-  border: 1px solid #F00;
+  // border: 1px solid #F00;
 
 }
 

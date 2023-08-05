@@ -1,39 +1,100 @@
 
 
 <script>
-export default {
-    setup () {
-        
+import { computed, reactive } from 'vue';
+import { useStore } from 'vuex';
 
-        return {}
+import WhiteCross from '@/components/WhiteCross.vue'
+export default {
+  components:{
+    WhiteCross
+  },  
+    setup () {
+      const store = useStore();
+      
+      const  personBoxBool = computed(()=>store.getters.personBoxBool)
+      const handpersonBoxBool = (el) =>{
+        let txt = el.currentTarget.dataset.txt
+        store.dispatch('handpersonBoxBool',txt)
+      }
+      const RoleImg = reactive({data:[
+        
+      ]})
+      const importRoleImg = ()=>{
+        for (let i = 1; i <= 10; i++) {
+          RoleImg.data.push({
+            idx: i , url:require(`@/assets/RingProject/role/cos${i}.png`)
+          })
+        }
+      }
+      importRoleImg()
+      const handRoleSelected = (el = null) =>{
+        let idx = 7
+        let roleUrl = []
+        if(el === null) {
+          roleUrl = RoleImg.data.filter(item=>{
+            if(item.idx === idx){
+              return {idx:item.idx, url:item.url}
+            }
+          })
+          store.dispatch('RoleSelected',roleUrl[0].url)
+
+          return;
+        }
+        idx = Number(el.currentTarget.dataset.alt)
+        roleUrl = RoleImg.data.filter(item=>{
+            if(item.idx === idx){
+              return {idx:item.idx, url:item.url}
+            }
+          })        
+        store.dispatch('RoleSelected',roleUrl[0].url)
+        
+      }
+      handRoleSelected()
+    
+
+        return {
+          RoleImg,
+          handRoleSelected,
+          personBoxBool,
+          handpersonBoxBool
+        }
     }
 }
 </script>
 <template>
-    <div class="personBox" v-show="true">
+    <div class="personBox" v-show="personBoxBool">
+      <WhiteCross data-txt="close" id="personBoxCross" @click="handpersonBoxBool"/>      
       <ul class="personList">
-        <li>
-        <img data-alt="list.idx"  src="@/assets/RingProject/role/cos7.png" alt="list.idx">
+       
+        <li v-for="list in RoleImg.data" @click="handRoleSelected" :data-alt="list.idx">
+        <img :src="list.url" :alt="list.idx">
       </li>
       </ul>
     </div>
 </template>
 <style lang="scss" scoped>
+#personBoxCross{
+  position: absolute;
+  right: 20px;
+}
 // personBox
 .personBox{
   position: fixed;
   z-index: 10;
-  top: 100%;
-  left: 0;
-  // left: 50%;
-  // transform: translateX(-50%);
-  width: 800px;
+  left: 101%;
+  top: -255%;
+  max-width: 500px;
+  width: 100%;
+  height: 500px;
   background-color: #999;
-  border-radius:  0 0 10px 10px;
+  border-radius: 10px;
   ul{
+    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
     li{
+      cursor: pointer;
       position: relative;
       border-radius: 4px;
       background-color: #EEE;
@@ -45,7 +106,7 @@ export default {
         box-shadow: 0 0 7px #fff455 ;
 
       }
-      &:nth-child(7n+1){
+      &:nth-child(4n+1){
         margin-left: 40px;
       }
 
@@ -62,10 +123,17 @@ export default {
 }
 @media (max-width: 992px) { 
   .personBox{
+    left: 0;
+    top: 100%;
     width: 100%;
+    max-width: 1000px;
+    border-radius: 0 0 10px;
     padding-bottom: 50px;
     ul{
       li{
+        &:nth-child(4n+1){
+        margin-left: 0px;
+        }        
         // margin: 10px;
         &:nth-child(7n+1){
           margin-left: 10px;

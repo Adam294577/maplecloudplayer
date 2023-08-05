@@ -22,7 +22,9 @@ export default createStore({
     ChannelListbool: false,
     MapMsgbool: false,
     RingSelected: {key:'',url:'',mode:''},
-    RingNavBool : false
+    RingNavBool : false,
+    RoleSelected: {url:''},
+    personBoxBool :false
 
   
     
@@ -85,6 +87,12 @@ export default createStore({
     },
     handRingNavBool({commit},txt){
       commit('handRingNavBool',txt)
+    },
+    RoleSelected({commit},roleUrl){
+      commit('RoleSelected',roleUrl)
+    },
+    handpersonBoxBool({commit},txt){
+      commit('handpersonBoxBool',txt)
     }
 
   },
@@ -139,7 +147,17 @@ export default createStore({
         return
       }
       state.RingNavBool = true
-    }
+    },
+    RoleSelected(state,roleUrl){
+      state.RoleSelected.url = roleUrl
+    },
+    handpersonBoxBool(state,txt){
+      if(txt==='close' || state.personBoxBool === true){
+        state.personBoxBool = false
+        return
+      }      
+      state.personBoxBool = true
+    }  
 
   },
   getters: {
@@ -179,6 +197,12 @@ export default createStore({
     },
     RingNavBool(state){
       return state.RingNavBool;
+    },
+    RoleSelected(state){
+      return state.RoleSelected;
+    },
+    personBoxBool(state){
+      return state.personBoxBool;
     }
 
 

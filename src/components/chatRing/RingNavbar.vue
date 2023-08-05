@@ -1,7 +1,12 @@
 <script>
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useStore } from 'vuex';
+
+import WhiteCross from '@/components/WhiteCross.vue'
 export default {
+  components:{
+    WhiteCross
+  },
     setup () {
         const store = useStore()
         const RingNavBool = computed(()=>store.getters.RingNavBool)
@@ -93,12 +98,9 @@ export default {
     v-model="ringsearch"
     @keyup="ringsearchFn"
     type="text" placeholder="收尋要找的聊天戒指">
-    <div class="navCross" 
-    @click="RingSelectCancel"
-    >
-        <div class="bar"></div>
-        <div class="bar bar2"></div>
-    </div>
+   
+
+    <WhiteCross id="ringCross" @click="RingSelectCancel"/>
     <nav class="ringList">
         <li 
         @click="handRingSelect"
