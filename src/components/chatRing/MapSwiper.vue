@@ -82,13 +82,13 @@
         swiperBtnNext.style['width'] = '150px'
         swiperBtnNext.style['height'] = '100%'
         swiperBtnNext.style['paddingLeft'] = '100px'
-        swiperBtnNext.style['paddingTop'] = '70px'
+        swiperBtnNext.style['paddingTop'] = '60px'
         swiperBtnNext.style['top'] = '0%'
         swiperBtnPrev.style['display'] = 'block'
         swiperBtnPrev.style['width'] = '150px'
         swiperBtnPrev.style['height'] = '100%'
         swiperBtnPrev.style['paddingLeft'] = '40px'
-        swiperBtnPrev.style['paddingTop'] = '70px'
+        swiperBtnPrev.style['paddingTop'] = '60px'
         swiperBtnPrev.style['top'] = '0%'
      
         const root = document.documentElement;
@@ -161,7 +161,7 @@
     user-select: none;
     position: absolute;
     width: 100%;
-    height: 150px;
+    height: 130px;
     // top: -250px;
     padding: 10px 50px 20px;
     margin-top: 150px;    
