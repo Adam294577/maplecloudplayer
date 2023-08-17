@@ -1,10 +1,12 @@
 <script>
 import PersonBox from '@/components/chatRing/PersonBox.vue'
+import MapSwiper from '@/components/chatRing/MapSwiper.vue'
 import { computed, onUpdated, ref } from 'vue';
 import { useStore } from 'vuex';
 export default {
     components:{
         PersonBox,
+        MapSwiper,
     },
     setup () {
       const store = useStore();
@@ -106,8 +108,9 @@ export default {
     <PersonBox />
     <div class="RWDremind">
       
-        <span>建議使用電腦版測試!</span>
-    </div>    
+        <span>建議用電腦全螢幕測試!</span>
+    </div>
+    <MapSwiper />    
 </div>
 </template>
 
@@ -219,6 +222,7 @@ export default {
   .CustomContainer{
     width: 100%;
     flex-wrap: wrap;
+    padding-bottom: 300px;
     .question{
       width: 100%;
       h1{

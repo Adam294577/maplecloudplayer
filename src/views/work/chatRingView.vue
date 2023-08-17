@@ -5,8 +5,8 @@ import CustomItem from '@/components/chatRing/CustomItem.vue'
 import RingNavbar from '@/components/chatRing/RingNavbar.vue'
 
 
-
 import { useStore } from 'vuex';
+import { computed } from 'vue';
 export default {
     components:{
         MapPerson,
@@ -16,20 +16,23 @@ export default {
     },
     setup () {
       const store = useStore();
+      
       const ChannelListCancel = () =>{
         store.dispatch('ChannelListCancel')
-
       }
-
+      const MapImg = computed(()=>store.getters.MapImg.url)
         return {
-          ChannelListCancel
+          ChannelListCancel,
+          MapImg
         }
     }
 }
 </script>
 
 <template>
-<div class="ChatSyscontainer" @click="ChannelListCancel">
+<div class="ChatSyscontainer" 
+:style="{'background-image': `url(${MapImg})`}"
+@click="ChannelListCancel">
 <RingNavbar />
 <MapPerson />
 <Chatsys />
@@ -47,7 +50,7 @@ export default {
 .ChatSyscontainer{
   background-size: cover;
   // background-attachment: fixed;
-  background-image: url(~@/assets/RingProject/map/map01.png);
+  background-image: url(~@/assets/RingProject/map/map1.png);
   background-repeat: no-repeat;
   position: relative;
   top: 50px;

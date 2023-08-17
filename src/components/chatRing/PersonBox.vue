@@ -31,6 +31,7 @@ export default {
       const handRoleSelected = (el = null) =>{
         let idx = 7
         let roleUrl = []
+        let txt = 'selected'
         if(el === null) {
           roleUrl = RoleImg.data.filter(item=>{
             if(item.idx === idx){
@@ -48,7 +49,7 @@ export default {
             }
           })        
         store.dispatch('RoleSelected',roleUrl[0].url)
-        
+        store.dispatch('handpersonBoxBool',txt)
       }
       handRoleSelected()
     
@@ -63,7 +64,7 @@ export default {
 }
 </script>
 <template>
-    <div class="personBox" v-show="personBoxBool">
+    <div class="personBox" v-show="personBoxBool" id="scrollEL">
       <WhiteCross data-txt="close" id="personBoxCross" @click="handpersonBoxBool"/>      
       <ul class="personList">
        
@@ -77,6 +78,12 @@ export default {
 #personBoxCross{
   position: absolute;
   right: 20px;
+}
+@media (max-width: 596px) { 
+#personBoxCross{
+  position: absolute;
+  right: 40px;
+}
 }
 // personBox
 .personBox{
@@ -124,7 +131,7 @@ export default {
 @media (max-width: 992px) { 
   .personBox{
     left: 0;
-    top: 100%;
+    top: 55%;
     width: 100%;
     max-width: 1000px;
     border-radius: 0 0 10px;
@@ -192,6 +199,7 @@ export default {
 }
 @media (max-width: 596px) { 
   .personBox{
+    height: 600px;
     ul{
       li{
         &:nth-child(5n+1){
@@ -207,6 +215,7 @@ export default {
 }
 @media (max-width: 486px) { 
   .personBox{
+    height: 650px;
     ul{
       li{
         &:nth-child(4n+1){

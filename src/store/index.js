@@ -24,7 +24,8 @@ export default createStore({
     RingSelected: {key:'',url:'',mode:''},
     RingNavBool : false,
     RoleSelected: {url:''},
-    personBoxBool :false
+    personBoxBool :false,
+    MapImg : {idx:'',url:''}
 
   
     
@@ -93,6 +94,9 @@ export default createStore({
     },
     handpersonBoxBool({commit},txt){
       commit('handpersonBoxBool',txt)
+    },
+    changeMap({commit},MapData){
+      commit('changeMap',MapData)
     }
 
   },
@@ -135,7 +139,6 @@ export default createStore({
       state.RingSelected.key = ringData[0].key;
       state.RingSelected.url = ringData[0].url;
       state.RingSelected.mode = ringData[0].mode;
-      console.log(state.RingSelected);
     },
     handRingNavBool(state,txt){
       if(state.RingNavBool===true && txt==='selected' ){
@@ -150,14 +153,24 @@ export default createStore({
     },
     RoleSelected(state,roleUrl){
       state.RoleSelected.url = roleUrl
+      // if(state.personBoxBool){
+      //   state.personBoxBool = false
+      // }
     },
     handpersonBoxBool(state,txt){
+
+      console.log(state.personBoxBool);
       if(txt==='close' || state.personBoxBool === true){
         state.personBoxBool = false
         return
       }      
       state.personBoxBool = true
-    }  
+    },
+    changeMap(state,MapData){
+      state.MapImg.url = MapData[0].url
+      state.MapImg.idx = MapData[0].idx
+      // console.log(state.MapImg);
+    }
 
   },
   getters: {
@@ -203,6 +216,9 @@ export default createStore({
     },
     personBoxBool(state){
       return state.personBoxBool;
+    },
+    MapImg(state){
+      return state.MapImg;
     }
 
 

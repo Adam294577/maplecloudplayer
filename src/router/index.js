@@ -23,34 +23,26 @@ const routes = [
   },
 
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-    meta:{
-      title: "About me",
-      metaTags: [
-        {
-          name: 'description',
-          content: '來自琉德的雲玩家，嘗試邊學習網頁技術邊分享遊戲資訊至這網頁上'
-        },
-        {
-          property: 'og:description',
-          content: '來自琉德的雲玩家，嘗試邊學習網頁技術邊分享遊戲資訊至這網頁上'
-        }
-      ]    
-    },
-  },
-  {
     path: '/work',
     name: "work",
     children:[
       {
         path: 'chatRing',
         name: 'chatRing',
-        component: () => import('../views/work/chatRingView.vue')
+        component: () => import('../views/work/chatRingView.vue'),
+        meta:{
+          title: "楓雲玩家",
+          metaTags: [
+            {
+              name: 'description',
+              content: '楓谷聊天模擬器'
+            },
+            {
+              property: 'og:description',
+              content: '楓谷聊天模擬器'
+            }
+          ]    
+        },          
       },
       {
         path: 'BossInfo',

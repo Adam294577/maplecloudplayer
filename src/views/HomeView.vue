@@ -10,7 +10,8 @@ export default {
       const IntroBoxData = reactive({data:[
           {
           key: "聊天戒指模擬器" , 
-          aim :"讓雲玩家們能先無料的嘗試使用各種聊天戒指樣式，找到喜好後能遊戲購買!", 
+          link:'/work/chatRing',
+          aim :"讓雲玩家們能無料的嘗試使用各種聊天戒指", 
           learn:[
               `1.自學以來第一次使用<a target="_blank" href="https://cli.vuejs.org/">Vue CLI</a>開啟的小專案`,
               `2.嘗試使用<a target="_blank" href="https://swiperjs.com/">swiper.js</a>套件功能使地圖方便使用者自由選擇喜好`,
@@ -37,12 +38,14 @@ export default {
       ]})    
       const workIntroBoxBool = ref(false)
       const workIntroBoxCont = ref({})
+      const RouterLink = ref('')
       const handworkIntroBox = (el) =>{
           if(workIntroBoxBool.value){
               workIntroBoxBool.value = false;
               return
           }
           let txt = el.currentTarget.dataset.introtxt;
+          
           console.log(txt);
       IntroBoxData.data.forEach(item => {
           if (item.key === txt){
@@ -51,6 +54,7 @@ export default {
               workIntroBoxCont.value['learn'] = item.learn
               workIntroBoxCont.value['addTxt'] = item.addTxt
               workIntroBoxCont.value['refHref'] = item.refHref
+              RouterLink.value = item.link
           }
       })
       console.log(workIntroBoxCont.value);
@@ -61,6 +65,7 @@ export default {
       workIntroBoxBool,
       workIntroBoxCont,
       handworkIntroBox,
+      RouterLink,
     }
   }
 }
@@ -79,16 +84,17 @@ export default {
                         <img src="@/assets/work/01.png" alt="">
                         <div class="link">
                             <span data-introTxt="聊天戒指模擬器" @click="handworkIntroBox">Intro</span>
-                            <span>See</span>
+                            <!-- <span>See</span> -->
+                            <router-link to="/work/chatRing">See</router-link>
                         </div>
                     </li>
-                    <li class="cloudItem">
+                    <li class="cloudItem" v-if="false">
                         <h1>demo</h1>
                         <img src="" alt="">
                         <div class="link">
                             <span data-introTxt="demo" @click="handworkIntroBox">Intro</span>
                             <span>See</span>
-                        </div>                        
+                          </div>                        
                     </li>
                 </div>
                 <div class="row">
@@ -115,7 +121,8 @@ export default {
                     </p>
                     <div class="IntroBoxLink">
                         <a @click="handworkIntroBox">Close</a>
-                        <a>See</a>
+                        <router-link :to="RouterLink">See</router-link>
+                        <!-- <a>See</a> -->
                     </div>                    
             </div>
         </div>
@@ -204,7 +211,7 @@ export default {
           display: flex;
           justify-content: center;
           // border: 1px solid #F00;
-          span{
+          a,span{
             cursor: pointer;
             text-align: center;
             border: 1px solid #333;
@@ -213,6 +220,8 @@ export default {
             width: 90px;
             margin-left: 10px;
             padding: 3px 0;
+            color: #000;
+            text-decoration: none;
             &:hover{
               background-color: #000;
               color: #FFF;
@@ -261,6 +270,8 @@ export default {
         border-radius: 3px;
         margin-left: 10px;
         background-color: #FFF;
+        color: #000;
+        text-decoration: none;
         &:hover{
           background-color: #000;
           color: #FFF;
