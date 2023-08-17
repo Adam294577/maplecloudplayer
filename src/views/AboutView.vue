@@ -45,7 +45,7 @@ export default {
 .aboutContainer{
   width: 90vw;
   position: absolute;
-  margin: 70px;
+  margin: 100px;
   .aboutImg{
       display: flex;
       justify-content: center;
