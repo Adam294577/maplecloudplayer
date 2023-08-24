@@ -31,7 +31,7 @@ export default {
         const store = useStore()
         
         const ActivityImgArr = []
-        const ActivityIdx = 10
+        const ActivityIdx = 15
 
         const handActivityImg = () =>{
             for (let i = 0; i <= ActivityIdx; i++) {
@@ -59,30 +59,36 @@ export default {
  
             // ActivityTag
             const ActivityTagData = ref([
-                {idx:0 , key:"黃金蘋果" ,class: "goldAppleTag" , url: `${ActivityImgArr[0].icon}`, act: true,show: true },
-                {idx:1 , key:"時尚隨機箱" ,class: "fashionTag" , url: `${ActivityImgArr[1].icon}`, act: false,show: true },
-                {idx:2 , key:"皇家美容院" ,class: "dressingTag" , url: `${ActivityImgArr[2].icon}`, act: false,show: true },
-                {idx:3 , key:"寵物隨機箱" ,class: "petTag" , url: `${ActivityImgArr[3].icon}`, act: false,show: true },
-                {idx:4 , key:"萌獸卡牌包" ,class: "cuteMosTag" , url: `${ActivityImgArr[4].icon}`, act: false,show: true },
-                {idx:5 , key:"魔法馬車" ,class: "cartTag" , url: `${ActivityImgArr[5].icon}`, act: false,show: false },
-                {idx:6 , key:"魔法畫框" ,class: "frameTag" , url: `${ActivityImgArr[6].icon}`, act: false,show: false },
-                {idx:7 , key:"潘朵拉箱子" ,class: "pandoraTag" , url: `${ActivityImgArr[7].icon}`, act: false,show: false },
-                {idx:8 , key:"月光水晶" ,class: "crystalTag" , url: `${ActivityImgArr[8].icon}`, act: false,show: false },
-                {idx:9 , key:"愛美組合包" ,class: "beautyTag" , url: `${ActivityImgArr[9].icon}`, act: false,show: true },
-                {idx:10 , key:"星光錦囊" ,class: "starTag" , url: `${ActivityImgArr[10].icon}`, act: false,show: true },
+                {idx:0 ,  zoomIn:false , key:"黃金蘋果" ,class: "goldAppleTag" , url: `${ActivityImgArr[0].icon}`, act: true,show: true },
+                {idx:1 ,  zoomIn:false , key:"時尚隨機箱" ,class: "fashionTag" , url: `${ActivityImgArr[1].icon}`, act: false,show: true },
+                {idx:2 ,  zoomIn:false , key:"皇家美容院" ,class: "dressingTag" , url: `${ActivityImgArr[2].icon}`, act: false,show: true },
+                {idx:3 ,  zoomIn:false , key:"寵物隨機箱" ,class: "petTag" , url: `${ActivityImgArr[3].icon}`, act: false,show: true },
+                {idx:4 ,  zoomIn:false , key:"萌獸卡牌包" ,class: "cuteMosTag" , url: `${ActivityImgArr[4].icon}`, act: false,show: true },
+                {idx:5 ,  zoomIn:false , key:"魔法馬車" ,class: "cartTag" , url: `${ActivityImgArr[5].icon}`, act: false,show: false },
+                {idx:6 ,  zoomIn:false , key:"魔法畫框" ,class: "frameTag" , url: `${ActivityImgArr[6].icon}`, act: false,show: false },
+                {idx:7 ,  zoomIn:false , key:"潘朵拉箱子" ,class: "pandoraTag" , url: `${ActivityImgArr[7].icon}`, act: false,show: false },
+                {idx:8 ,  zoomIn:false , key:"月光水晶" ,class: "crystalTag" , url: `${ActivityImgArr[8].icon}`, act: false,show: false },
+                {idx:9 ,  zoomIn:false , key:"愛美組合包" ,class: "beautyTag" , url: `${ActivityImgArr[9].icon}`, act: false,show: true },
+                {idx:10 , zoomIn:false ,  key:"星光錦囊" ,class: "starTag" , url: `${ActivityImgArr[10].icon}`, act: false,show: false },
+                {idx:11 , zoomIn:false ,  key:"結合方塊" ,class: "combineTag" , url: `${ActivityImgArr[11].icon}`, act: false,show: false },
+                {idx:12 , zoomIn:false ,  key:"時裝套組" ,class: "frameSetTag" , url: `${ActivityImgArr[12].icon}`, act: false,show: false },
+                {idx:13 , zoomIn:false ,  key:"覺醒星火" ,class: "sparkTag" , url: `${ActivityImgArr[13].icon}`, act: false,show: false },
+                {idx:14 , zoomIn:false ,  key:"盛夏購物季" ,class: "consumptionTag" , url: `${ActivityImgArr[14].icon}`, act: false,show: true },
+                {idx:15 , zoomIn:true ,  key:"恢復附加方塊" ,class: "recoverTag" , url: `${ActivityImgArr[15].icon}`, act: false,show: true },
             ])
-            const ActivitySelected = ref([{key:"黃金蘋果", bannerUrl: `${ActivityImgArr[0].banner}`}])
+            const ActivitySelected = ref([{key:"黃金蘋果", bannerUrl: `${ActivityImgArr[0].banner}`,bannerZoomIn: false}] )
 
             const handActivityTag = (el) =>{
                 let target = el.currentTarget.dataset.tag
                 ActivityTagData.value = ActivityTagData.value.map(item=>{
                     if(target === item.key){
                         ActivitySelected.value[0].key = item.key;
-                        // ActivitySelected.value[0].bannerUrl = `./img/${item.key}_banner.png`;
                         ActivitySelected.value[0].bannerUrl = `${ActivityImgArr[item.idx].banner}`;
-                        return {idx:item.idx, key: item.key ,class: item.class , url: item.url , act: true,show:item.show}
-                    }else{
-                        return {idx:item.idx, key: item.key ,class: item.class , url: item.url , act: false,show:item.show}
+                        ActivitySelected.value[0].bannerZoomIn =item.zoomIn;
+                        console.log(ActivitySelected.value[0].bannerZoomIn);
+                        return {idx:item.idx, zoomIn:item.zoomIn,key: item.key ,class: item.class , url: item.url , act: true,show:item.show }
+                    }else {
+                        return {idx:item.idx, zoomIn:item.zoomIn,key: item.key ,class: item.class , url: item.url , act: false,show:item.show}
                     }
                 })
             }
@@ -172,11 +178,12 @@ export default {
                         v-show="list.show"
                         >
                         <img :src="list.url" :alt="list.key">
+                        <span class="contentTxt">{{list.key}}</span>
                         </li>
                     </div>
     
                     <div class="content">
-                       <img class="banner" :src="ActivitySelected[0].bannerUrl" alt="">
+                       <img :class="['banner',{'zoomIn': ActivitySelected[0].bannerZoomIn }]" :src="ActivitySelected[0].bannerUrl" alt="">
                        <!-- 黃金蘋果 -->
                        <div class="ProbabilityBox goldApple" v-show="ActivitySelected[0].key === '黃金蘋果'">
                        <goldApple/>
@@ -369,7 +376,7 @@ export default {
     li{
       // border: 1px solid #F00;
       cursor: pointer;
-      width: 80px;
+      width: 100px;
       height: 50px;
       margin: 7px;
       position: relative;
@@ -401,66 +408,16 @@ export default {
         text-align: center;
         color: #777;
       }
-      &.goldAppleTag{
-        &::after{
-          content: '黃金蘋果';
-        }
-      }
-      &.cuteMosTag{
-        &::after{
-          content: '萌獸卡牌包';
-        }
-      }
-      &.cartTag{
-        &::after{
-          content: '魔法馬車';
-        }
-      }
-      &.pandoraTag{
-        &::after{
-          content: '潘朵拉箱子';
-        }
-      }
-      &.fashionTag{
-        &::after{
-          content: '時尚隨機箱';
-        }
-      }
-      &.dressingTag{
-        &::after{
-          content: '皇家美容院';
-        }
-      }
-      &.petTag{
-        &::after{
-          content: '寵物隨機箱';
-        }
-      }
-      &.cubeTag{
-        &::after{
-          content: 'XX方塊';
-        }
-      }
-      &.crystalTag{
-        &::after{
-          content: '月光水晶';
-        }
-      }
-      &.frameTag{
-        &::after{
-          content: '魔法畫框';
-        }
-      }
-      &.starTag{
-        &::after{
-          content: '星光錦囊';
-        }
-      }
-      &.beautyTag{
-        &::after{
-          content: '愛美組合包';
-        }
-      }
+
+    }
+    .contentTxt{
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      display: inline-block;
+      width: 100px;
+      text-align: center;
     }
   }
   .content{
@@ -473,6 +430,9 @@ export default {
       margin: auto;
       margin-top: 20px;
       // opacity: 0;
+      &.zoomIn{
+        max-width: 1200px;
+      }
     }
     .ProbabilityBox{
       .title{
@@ -503,7 +463,7 @@ export default {
           width: 48%;
           margin: auto;
           margin-top: 10px;
-          max-width: 500px;
+          max-width: 600px;
           .remindTxt{
             font-size: 14px;
             text-align: center;

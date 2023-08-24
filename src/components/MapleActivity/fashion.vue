@@ -15,31 +15,32 @@ export default {
     </div>
     <div class="ProbabilityTable">
         <ul>
-            <h1 class="fashionTitle">時空旅者</h1>
+            <h1 class="fashionTitle">魔法修練生</h1>
             <li class="itemTitle"><span>項目</span><span>機率</span></li>
-            <li><span>專業時空旅者</span>	<span>0.70%</span></li>
-            <li><span>時空旅者護目鏡</span>	<span>0.70%</span></li>
-            <li><span>時空衝擊(男)</span>	<span>0.60%</span></li>
-            <li><span>時空湧動(女) </span> <span>0.60%</span></li>
-            <li><span>時空飛行</span>	<span>0.80%</span></li>
-            <li><span>時空旅者鞋子(男)</span>	<span>0.70%</span></li>
-            <li><span>時空旅者高跟鞋(女) </span> <span>0.70%</span></li>
-            <li><span>時空旅者</span>	<span>0.50%</span></li>
-            <li><span>時空旅者聊天戒指</span>	<span>0.80%</span></li>
-            <li><span>時空旅者名牌戒指</span>	<span>0.80%</span></li>
-            <li><span>時空旅者背包</span>	<span>0.90%</span></li>
-            <li><span>時空發條</span>	<span>0.80%</span></li>
+
+<li><span>魔法修練生光環(A型)</span><span>0.60%</span></li>
+<li><span>魔法修練生光環(B型)</span><span>0.60%</span></li>
+<li><span>魔法修練生的校服(A型)</span><span>0.50%</span></li>
+<li><span>魔法修練生的校服(B型)</span><span>0.50%</span></li>
+<li><span>充滿魔力的神祕腳鏈</span><span>0.60%</span></li>
+<li><span>蘊含魔力的神祕蝴蝶結腳鏈</span><span>0.60%</span></li>
+<li><span>擁有魔力的證明</span><span>0.70%</span></li>
+<li><span>魔法修練生的法杖</span><span>0.50%</span></li>
         </ul>
         <ul>
-            <h1 class="fashionTitle">法老王的寶物</h1>
+            <h1 class="fashionTitle">祕密基地學生</h1>
             <li class="itemTitle"><span>項目</span><span>機率</span></li>
-            <li><span>午後陽光</span>	<span>0.70%</span></li>
-            <li><span>午後天空</span>	<span>0.70%</span></li>
-            <li><span>悠閒午後(男)</span>	<span>0.60%</span></li>
-            <li><span>如畫的午後(女) </span> <span>0.60%</span></li>
-            <li><span>午後散步</span>	<span>0.70%</span></li>
-            <li><span>灑落的午後花瓣</span>	<span>0.80%</span></li>
-            <li><span>避暑陽傘</span>	<span>0.60%</span></li>
+<li><span>祕密基地學生貝雷帽</span><span>0.70%</span></li>
+<li><span>祕密基地學生髮箍</span><span>0.70%</span></li>
+<li><span>祕密基地男校服</span><span>0.60%</span></li>
+<li><span>祕密基地女校服</span><span>0.60%</span></li>
+<li><span>祕密基地學生運動鞋</span><span>0.70%</span></li>
+<li><span>秘密基地皮卡啾徽章</span><span>0.70%</span></li>
+<li><span>秘密基地防身用鞋子</span><span>0.50%</span></li>
+<li><span>楓之谷學院名牌戒指(A)</span><span>0.70%</span></li>
+<li><span>楓之谷學院聊天戒指(A)</span><span>0.70%</span></li>
+<li><span>楓之谷學院名牌戒指(B)</span><span>0.70%</span></li>
+<li><span>楓之谷學院聊天戒指(B)</span><span>0.70%</span></li>
         </ul>
 </div>
                         

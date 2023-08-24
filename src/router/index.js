@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AboutView from '../views/AboutView.vue'
 import NotFound from '../views/NotFound.vue'
 
 const routes = [
@@ -12,11 +13,29 @@ const routes = [
       metaTags: [
         {
           name: 'description',
-          content: '來自琉德的雲玩家，嘗試邊學習網頁技術邊分享遊戲資訊至這網頁上'
+          content: '楓谷來自琉德的雲玩家'
         },
         {
           property: 'og:description',
-          content: '來自琉德的雲玩家，嘗試邊學習網頁技術邊分享遊戲資訊至這網頁上'
+          content: '楓谷來自琉德的雲玩家'
+        }
+      ]    
+    },   
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: AboutView,
+    meta:{
+      title: "楓雲玩家",
+      metaTags: [
+        {
+          name: 'description',
+          content: '楓谷來自琉德的雲玩家'
+        },
+        {
+          property: 'og:description',
+          content: '楓谷來自琉德的雲玩家'
         }
       ]    
     },   
