@@ -34,7 +34,7 @@ export default {
               `3.使用<a target="_blank" href="https://interactjs.io/">interact.js</a>的套件功能 讓玩家能自由拖曳聊天框位置`,
               `4.面對各種聊天戒指的樣式，在css切圖上也花了不少時間去了解T_T`,
               ],
-          addTxt: `若聊天模擬器上沒有的，歡迎加入<a href="#">Discord</a>分享自己常用戒指有空之餘會再更新上去`,
+          addTxt: `若聊天模擬器上沒有的，歡迎加入Discord分享自己常用戒指有空之餘會再更新上去`,
           refHref:``,
           },
           {
