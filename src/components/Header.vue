@@ -75,6 +75,7 @@ export default {
                 <li><a href="#" @click.prevent="handActivitybool">官網近期活動</a></li>
                 <li class="home"> <router-link to="/">Home</router-link></li>
                 <li><router-link to="/about">About me</router-link></li>
+                <li><router-link to="/">這是測試版</router-link></li>
                 <li><a href="https://discord.gg/SNkpEWxvU3" target="_blank">Discord</a></li>
             </ul>
         </header>
