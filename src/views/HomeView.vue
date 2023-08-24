@@ -245,13 +245,14 @@ export default {
   .workIntroBox{
     position: fixed;
     z-index: 10;
-    top: 60px;
+    top: 90px;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
     max-width: 1200px;
     height: 70vh;
     background-color: #DDD;
+    border-radius: 5px;
     .IntroBoxLink{
       position: absolute;
       bottom: 10px;

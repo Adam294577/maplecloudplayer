@@ -53,7 +53,7 @@ export default {
   background-image: url(~@/assets/RingProject/map/map1.png);
   background-repeat: no-repeat;
   position: relative;
-  top: 50px;
+  top: 70px;
   width: 800px;
   height: 600px;
   margin: 0 auto;
@@ -67,6 +67,7 @@ export default {
 }
 @media (max-width: 576px) { 
   .ChatSyscontainer{
+    top: 0;
     background-position: -200px 0;
   }
 }

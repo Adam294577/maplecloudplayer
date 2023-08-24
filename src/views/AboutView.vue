@@ -45,7 +45,7 @@ export default {
 .aboutContainer{
   width: 90vw;
   position: absolute;
-  margin: 70px;
+  margin: 100px;
   .aboutImg{
       display: flex;
       justify-content: center;
@@ -81,8 +81,8 @@ export default {
               
 
               &:hover{
-                  color: rgb(255, 25, 133);
-                  border-bottom: 1px solid rgb(255, 25, 133);
+                text-shadow: 0 0 15px #e8b39d,0 0 15px #e8b39d;
+                //   border-bottom: 1px solid rgb(255, 25, 133);
               }
           }
       }
@@ -132,7 +132,7 @@ export default {
               color: #FFF;
               text-decoration: none;
               &:hover{
-                  color: rgb(255, 25, 133);
+                text-shadow: 0 0 15px #e8b39d,0 0 15px #e8b39d;
               }
           }
       }

@@ -53,11 +53,27 @@ export default {
                 <div class="bar bar1"></div>
                 <div class="bar bar2"></div>
             </div>
+            <router-link to="/">
+            <div class="logo">
+                <div class="maple">
+                    <img src="@/assets/logo/maple.png" alt="">
+                    <img src="@/assets/logo/maple_blur.png" alt="">
+                </div>
+                <div class="cloud">
+                    <img src="@/assets/logo/cloud_l.png" alt="">
+                    <img src="@/assets/logo/cloud_r.png" alt="">
+                </div>
+                <div class="light">
+                    <img src="@/assets/logo/light.png" alt="">
+                </div>
+            </div>              
+            </router-link>
             <ul class="headerList" v-show="headerMenubool">
             <!-- <ul class="headerList" v-show=""> -->
              
-                <li class="home"> <router-link to="/">首頁</router-link></li>
+              
                 <li><a href="#" @click.prevent="handActivitybool">官網近期活動</a></li>
+                <li class="home"> <router-link to="/">Home</router-link></li>
                 <li><router-link to="/about">About me</router-link></li>
                 <li><a href="https://discord.gg/SNkpEWxvU3" target="_blank">Discord</a></li>
             </ul>
@@ -74,7 +90,7 @@ export default {
     left: 0;
     width: 100%;
     background-color: #000;
-    height: 40px;
+    height: 75px;
     z-index: 777;
     .headerMenu{
       display: none;
@@ -84,6 +100,9 @@ export default {
       display: flex;
       justify-content: end;
       align-items: center;
+      position: absolute;
+      top: 0;
+      right: 10px;
       p{
         color: #FFF;
       }
@@ -94,16 +113,17 @@ export default {
         font-weight: bold;
         height: 100%;
         text-align: center;
-        padding-top: 7px;
+        padding-top: 23px;
         
         &:last-child{
           margin-right: 20px;
         }
         &.home{
-          position: absolute;
-          top: 0;
-          left: 0px;
-        }
+          display: none;
+          a{
+            display: inline;
+          }
+        }        
         a{
           // border: 1px solid #F00;
           font-size: 18px;
@@ -114,7 +134,8 @@ export default {
           text-decoration: none;
           position: relative;
           &:hover{
-            color: rgb(255, 25, 133);
+           text-shadow: 0 0 15px #e8b39d,0 0 15px #e8b39d;
+       
           }
         }
     }
@@ -124,29 +145,32 @@ export default {
 @media (max-width: 576px) { 
   header{
     background-color: transparent;
-    z-index: 2;
     .headerMenu{
       position: fixed;
-      top: 10px;
-      right: 10px;
+      top: 15px;
+      right: 15px;
       display: block;
       width: 50px;
       height: 50px;
       cursor: pointer;
+      background-color: #222;
+      border-radius: 50px;
       .bar{
         position: absolute;
         width: 30px;
         height: 3px;
         background-color: #fff;
         border-radius: 3px;
+        left: 50%;
+        transform: translateX(-50%);
         &.bar1{
-          top: 0;
+          top: 14px;
         }
         &.bar2{
-          top: 7px;
+          top: 21px;
         }
         &.bar3{
-          top: 14px;
+          top: 28px;
         }
       }
       
@@ -175,7 +199,7 @@ export default {
       }
       &:hover{
         .bar{
-          background-color: rgb(255, 25, 133);
+          box-shadow: 0 0 15px #e8b39d,0 0 15px #e8b39d;
         }
       }
 
@@ -184,6 +208,7 @@ export default {
       display: flex;
       flex-direction: column;
       background-color: #000000;
+      top: 0;
       width: 300px;
       position: absolute;
       right: 0;
@@ -205,12 +230,10 @@ export default {
           margin-bottom: 20px;
         }
         &.home{
-          position: fixed;
-          top: -10px;
-          left: 0px;
+          display: block;
           a{
-            color: #FFF;
-          }
+            display: inline;
+          }          
         }
         a{
           font-size: 18px;
@@ -221,7 +244,7 @@ export default {
           text-decoration: none;
           position: relative;
           &:hover{
-            color: rgb(255, 25, 133);
+            text-shadow: 0 0 15px #e8b39d,0 0 15px #e8b39d;
           }
         }
     }
@@ -230,6 +253,82 @@ export default {
 } 
 }
 
+// logo
+.logo{
+  position: fixed;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  // border: 1px solid #F00;
+  margin-left: 10px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  img{
+      position: absolute;
+      left: -15px;
+  }
+  .maple{
+      img{
+          &:nth-child(1){
+              z-index: 3;   
+          }
+          &:nth-child(2){
+              transition: 0.5s;
+              z-index: 3;
+              opacity: 0;
+          }
+      }
+  }
+  .cloud{
+      img{
+          z-index: 2;
+          transition: 0.7s;
+          transform: translateX(0px);
+          opacity: 1;                
+      }
+  }
+  .light{
+      img{
+          transition: 0.5s;
+          opacity: 0;
+         
+      }
+  }
+}    
+.logo:hover{
+       
+        .maple{
+            img{
+                &:nth-child(2){
+                    opacity: 1;
+                }
+            }
+        }
+        .cloud{
+            img{
+                &:nth-child(1){
+                    opacity: 0;
+                    transform: translateX(-50px);
+                }
+                &:nth-child(2){
+                    opacity: 0;
+                    transform: translateX(50px);
+                }
+            }
+        }
+        .light{
+            img{
+                opacity: 1;
+            }
+            
+        }        
+}
+@media (max-width: 576px) {
+  .logo{
+    display: none;
+  }
+}
 
 
 

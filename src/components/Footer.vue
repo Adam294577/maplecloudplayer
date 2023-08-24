@@ -1,9 +1,15 @@
 <script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
     setup () {
-        
+      const store = useStore()
+      const Activitybool = computed(()=>{return store.getters.Activitybool})
 
-        return {}
+
+        return {
+          Activitybool,
+        }
     }
 }
 </script>
@@ -11,8 +17,8 @@ export default {
 
 
 <template>
-        <!-- <footer v-show="!Activitybool"> -->
-        <footer>
+        <footer v-show="!Activitybool">
+        <!-- <footer> -->
             <span id="updatetime">
                 <h1>本頁更新日期:</h1>
                 <span>2023.07.30</span>
