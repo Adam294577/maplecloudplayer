@@ -255,6 +255,7 @@ export default {
 
 // logo
 .logo{
+  user-select: none;
   position: fixed;
   top: 0;
   width: 120px;

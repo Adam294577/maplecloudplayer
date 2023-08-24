@@ -4,11 +4,14 @@ import { useStore } from 'vuex';
 export default {
     setup () {
       const store = useStore()
+      const FooterDate = computed(()=>{return store.getters.FooterDate})
       const Activitybool = computed(()=>{return store.getters.Activitybool})
+      
 
 
         return {
-          Activitybool,
+          FooterDate,
+          Activitybool
         }
     }
 }
@@ -18,10 +21,9 @@ export default {
 
 <template>
         <footer v-show="!Activitybool">
-        <!-- <footer> -->
             <span id="updatetime">
                 <h1>本頁更新日期:</h1>
-                <span>2023.07.30</span>
+                <span>{{ FooterDate }}</span>
             </span>
             <span id="copyright">© 2023  池雲寅 - 轉載文章時請附上作者(池雲寅)及原文連結(Url)。</span>
         </footer>

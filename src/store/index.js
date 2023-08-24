@@ -5,8 +5,8 @@ import moment from 'moment';
 moment().format();
 export default createStore({
   state: {
-   
-    
+    Footerbool: true,
+    FooterDate: '',
     // bossInfo
     BossSelected: "露希妲",
     SectionSelected: "bossIntro",
@@ -33,6 +33,10 @@ export default createStore({
 
   },
   actions: {
+    handFooterDate({commit},date){
+      commit('FooterDateChange', date)
+    },
+   
     
     handInit({commit}){
       const url = '/mapleBossInfo.json';
@@ -44,17 +48,7 @@ export default createStore({
         console.error("沒接到API");
       })
     },
-    getNavData({commit}){
-      const url = '/bossGrade.json';
-      return axios.get(url)
-      .then(res=>{
-        commit('getNavData', res.data)
-        return res.data
-      })
-      .catch(err=>{
-        console.error("沒接到NavData");
-      })
-    },
+
     handActivitybool({commit}){
       commit('handActivitybool')
     },
@@ -101,6 +95,9 @@ export default createStore({
 
   },
   mutations: {
+    FooterDateChange(state,date){
+      state.FooterDate = date
+    },
     updateTime(state){
       let nowtime = moment().format("HH:mm"); 
       state.nowTime = nowtime;
@@ -108,6 +105,8 @@ export default createStore({
 
     handActivitybool(state){
       state.Activitybool = !state.Activitybool;
+      state.Footerbool = !state.Activitybool
+
     },
     changeID(state,newID){
       state.game_id = newID;
@@ -219,7 +218,15 @@ export default createStore({
     },
     MapImg(state){
       return state.MapImg;
+    },
+    Footerbool(state){
+      return state.Footerbool;
+    },
+
+    FooterDate(state){
+      return state.FooterDate
     }
+
 
 
 

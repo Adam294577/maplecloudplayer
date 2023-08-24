@@ -4,8 +4,9 @@ import Chatsys from '@/components/chatRing/Chatsys.vue'
 import CustomItem from '@/components/chatRing/CustomItem.vue'
 import RingNavbar from '@/components/chatRing/RingNavbar.vue'
 
-
+import {useRoute} from 'vue-router'
 import { useStore } from 'vuex';
+import RouteLinkUpdate from '@/api/RouteLinkUpdate.json'
 import { computed } from 'vue';
 export default {
     components:{
@@ -15,7 +16,18 @@ export default {
         RingNavbar
     },
     setup () {
+      const Route = useRoute()
       const store = useStore();
+      const lastUpdateTime =  RouteLinkUpdate.data.filter(item=>{
+        if(item.path === Route.path){
+          return item
+        }
+      })
+      const handFooterDate = ()=>{
+        let date = lastUpdateTime[0].date
+        store.dispatch('handFooterDate',date)
+      }
+      handFooterDate()      
       
       const ChannelListCancel = () =>{
         store.dispatch('ChannelListCancel')

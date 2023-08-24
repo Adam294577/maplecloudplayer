@@ -41,25 +41,6 @@ const routes = [
     },   
   },
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView,
-    meta:{
-      title: "關於我",
-      metaTags: [
-        {
-          name: 'description',
-          content: '來自琉德的雲玩家，嘗試邊學習網頁技術邊分享遊戲資訊至這網頁上'
-        },
-        {
-          property: 'og:description',
-          content: '來自琉德的雲玩家，嘗試邊學習網頁技術邊分享遊戲資訊至這網頁上'
-        }
-      ]    
-    },   
-  },
-
-  {
     path: '/work',
     name: "work",
     children:[

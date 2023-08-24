@@ -1,10 +1,26 @@
 <script>
 import HeaderBg from '@/components/HeaderBg.vue'
+import {useRoute} from 'vue-router'
+import { useStore } from 'vuex';
+import RouteLinkUpdate from '@/api/RouteLinkUpdate.json'
+
 export default {
   components:{
     HeaderBg,
   },  
   setup () {
+    const Route = useRoute()
+      const store = useStore()
+      const lastUpdateTime =  RouteLinkUpdate.data.filter(item=>{
+        if(item.path === Route.path){
+          return item
+        }
+      })
+      const handFooterDate = ()=>{
+        let date = lastUpdateTime[0].date
+        store.dispatch('handFooterDate',date)
+      }
+      handFooterDate()    
     
 
     return {}

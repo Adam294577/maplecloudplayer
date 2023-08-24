@@ -85,7 +85,6 @@ export default {
                         ActivitySelected.value[0].key = item.key;
                         ActivitySelected.value[0].bannerUrl = `${ActivityImgArr[item.idx].banner}`;
                         ActivitySelected.value[0].bannerZoomIn =item.zoomIn;
-                        console.log(ActivitySelected.value[0].bannerZoomIn);
                         return {idx:item.idx, zoomIn:item.zoomIn,key: item.key ,class: item.class , url: item.url , act: true,show:item.show }
                     }else {
                         return {idx:item.idx, zoomIn:item.zoomIn,key: item.key ,class: item.class , url: item.url , act: false,show:item.show}
@@ -229,7 +228,7 @@ export default {
             </div>
             <div class="Activitydate">
                 <span class="title">最後更新日期</span>
-                <span class="txt">2023.07.29</span>
+                <span class="txt">2023.08.24</span>
             </div>  
 </div>   
 </template>
