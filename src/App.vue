@@ -1,30 +1,43 @@
+<script>
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+import MapleActivityBox from '@/components/MapleActivityBox.vue'
+
+export default {
+    components:{
+        Header,
+        Footer,
+        MapleActivityBox,
+    },
+    setup () {
+        
+
+        return {}
+    }
+}
+</script>
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+<Header />
+<MapleActivityBox />
+<router-view></router-view>
+<Footer />
 </template>
 
+
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style-type: none;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+body{
+    background-color: #222;
+    height: 100%;
+    ::-webkit-scrollbar{
+      width: 0;
+    }    
   }
-}
+
 </style>
