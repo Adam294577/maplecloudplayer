@@ -54,37 +54,39 @@ const routes = [
           title: "聊天模擬器",
           metaTags: [
             {
-              name: 'description',
-              content: '簡單的楓谷聊天模擬器'
-            },
-            {
-              name: 'twitter:description',
-              content: '簡單的楓谷聊天模擬器'
-            },
-            {
-              name: 'twitter:site',
-              content: '@maplecloudplayer'
-            },
-            {
-              name: 'twitter:summary',
-              content: '簡單的楓谷聊天模擬器'
+              property: 'og:title',
+              content: '聊天模擬器'
             },
 
             {
               property: 'og:description',
               content: '簡單的楓谷聊天模擬器'
             },
+ 
+
             {
-              property: 'og:title',
-              content: '聊天模擬器'
+              property: 'og:image',
+              content: LogImg
+            },            
+            {
+              name: 'twitter:card',
+              content: 'summary'
+            },
+            {
+              name: 'twitter:site',
+              content: '@maplecloudplayer'
+            },
+            {
+              name: 'description',
+              content: '簡單的楓谷聊天模擬器'
             },
             {
               name: 'twitter:title',
               content: '聊天模擬器'
             },
             {
-              property: 'og:image',
-              content: LogImg
+              name: 'twitter:description',
+              content: '簡單的楓谷聊天模擬器'
             },
             {
               name: 'twitter:image',
@@ -93,7 +95,9 @@ const routes = [
             {
               name: 'twitter:image:alt',
               content: '雲玩家'
-            },
+            },            
+
+
           ]    
         },          
       },
