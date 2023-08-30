@@ -58,6 +58,11 @@ const routes = [
               content: '簡單的楓谷聊天模擬器'
             },
             {
+              name: 'twitter:description',
+              content: '簡單的楓谷聊天模擬器'
+            },
+
+            {
               property: 'og:description',
               content: '簡單的楓谷聊天模擬器'
             },
@@ -66,7 +71,15 @@ const routes = [
               content: '聊天模擬器'
             },
             {
+              name: 'twitter:title',
+              content: '聊天模擬器'
+            },
+            {
               property: 'og:image',
+              content: LogImg
+            },
+            {
+              name: 'twitter:image',
               content: LogImg
             },
           ]    
