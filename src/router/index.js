@@ -5,10 +5,6 @@ import NotFound from '../views/NotFound.vue'
 
 import LogImg from '@/assets/logo/metaImg.png'
 
-console.log(LogImg);
-
-
-
 const routes = [
   {
     path: '/',
