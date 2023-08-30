@@ -23,7 +23,6 @@ export default {
 </script>
 <template>
     <div class="ringContainer person" 
-    :data-test="personSelected"
     :style="{'background-image': `url(${RoleSelected.url})`}"
     >
         <div :class="['chatring',RingSelected.mode]" v-show="MapMsgbool">

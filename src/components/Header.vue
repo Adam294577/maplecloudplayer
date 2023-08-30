@@ -75,7 +75,6 @@ export default {
                 <li><a href="#" @click.prevent="handActivitybool">官網近期活動</a></li>
                 <li class="home"> <router-link to="/">Home</router-link></li>
                 <li><router-link to="/about">About me</router-link></li>
-                <li><router-link to="/">這是測試版</router-link></li>
                 <li><a href="https://discord.gg/SNkpEWxvU3" target="_blank">Discord</a></li>
             </ul>
         </header>
@@ -147,9 +146,10 @@ export default {
   header{
     background-color: transparent;
     .headerMenu{
+      user-select: none;
       position: fixed;
-      top: 15px;
-      right: 15px;
+      top: 1.5rem;
+      right: 2rem;
       display: block;
       width: 50px;
       height: 50px;
@@ -178,9 +178,10 @@ export default {
     }
     .headercross{
       cursor: pointer;
+      user-select: none;
       position: fixed;
-      right: 10px;
-      top: 10px;
+      right: 2.5rem;
+      top: 2rem;
       width: 30px;
       height: 30px;
       z-index: 10;

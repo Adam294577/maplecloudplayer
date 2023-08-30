@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from "./store";
 
+import VueMeta from 'vue-meta';
 const app = createApp(App).use(router).use(store)
 
 app.directive("testFn",{
@@ -12,4 +13,13 @@ app.directive("testFn",{
     }
 })
 
+
+// app.use(VueMeta, {
+//     refreshOnceOnNavigation: true,
+//   });
+
 app.mount('#app')
+
+
+  
+

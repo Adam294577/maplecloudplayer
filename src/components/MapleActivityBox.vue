@@ -42,6 +42,17 @@ export default {
             }
         }
         handActivityImg()
+        const imgOnload= (arr) =>{
+
+          arr = ActivityImgArr
+            let loadImg = new Image()
+            arr.forEach(item =>{
+                loadImg = new Image()
+                loadImg.src = item.banner
+            })
+        }    
+        imgOnload()    
+        
         
         
             // Activitybool

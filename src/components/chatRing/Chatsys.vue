@@ -225,7 +225,7 @@ export default {
                     <li @click="handchatChannel" data-channel="c1" class="item">對所有人<span>(/e)</span></li> 
                 </ul>
                 <input 
-                @keyup="txtSummit"
+                @keyup.prevent="txtSummit"
                 @input="handMsg"
                 id="userinput" type="text" maxlength="20">
                 <div class="ChatImg">

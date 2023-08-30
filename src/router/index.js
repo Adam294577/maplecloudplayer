@@ -3,6 +3,12 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import NotFound from '../views/NotFound.vue'
 
+import LogImg from '@/assets/logo/metaImg.png'
+
+console.log(LogImg);
+
+
+
 const routes = [
   {
     path: '/',
@@ -27,7 +33,7 @@ const routes = [
     name: 'about',
     component: AboutView,
     meta:{
-      title: "楓雲玩家",
+      title: "楓雲玩家-about",
       metaTags: [
         {
           name: 'description',
@@ -49,7 +55,7 @@ const routes = [
         name: 'chatRing',
         component: () => import('../views/work/chatRingView.vue'),
         meta:{
-          title: "楓雲玩家",
+          title: "聊天模擬器",
           metaTags: [
             {
               name: 'description',
@@ -58,7 +64,15 @@ const routes = [
             {
               property: 'og:description',
               content: '簡單的楓谷聊天模擬器'
-            }
+            },
+            {
+              property: 'og:title',
+              content: '聊天模擬器'
+            },
+            {
+              property: 'og:image',
+              content: LogImg
+            },
           ]    
         },          
       },

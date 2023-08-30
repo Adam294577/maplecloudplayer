@@ -120,7 +120,8 @@ export default {
             </div>
 
             <div class="workIntroBox" v-show="workIntroBoxBool">
-                    <h1>{{workIntroBoxCont.key}}</h1>
+              <div class="IntroCont">
+                <h1>{{workIntroBoxCont.key}}</h1>
                     <p>目的: 
                         <span>{{workIntroBoxCont.aim}}</span>
                     </p>
@@ -135,6 +136,8 @@ export default {
                         其他製作參考連結: 
                         <span v-for="list in workIntroBoxCont.refHref" :key="list" v-html="list"></span>
                     </p>
+              </div>
+
                     <div class="IntroBoxLink">
                         <a @click="handworkIntroBox">Close</a>
                         <router-link :to="RouterLink">See</router-link>
@@ -382,6 +385,18 @@ export default {
   
           
         }
+      }
+    }
+    .workIntroBox{
+      .IntroCont{
+        height: 60vh;
+        // border: 10px solid #FF0;
+        overflow: hidden;
+        overflow-y: scroll;
+        &::-webkit-scrollbar{
+          width: 0;
+        }
+
       }
     }
   }  

@@ -30,7 +30,7 @@ export default {
 
 <template>
   <HeaderBg />
-        <div class="aboutContainer" v-show="true">
+        <div class="aboutContainer">
         <!-- <div class="aboutContainer" v-show=""> -->
             <div class="aboutImg">
                 <div class="aboutCard">
@@ -59,9 +59,9 @@ export default {
 
 // about
 .aboutContainer{
-  width: 90vw;
+  width: 100%;
   position: absolute;
-  margin: 100px;
+  margin-top: 120px;
   .aboutImg{
       display: flex;
       justify-content: center;
@@ -110,7 +110,6 @@ export default {
 .aboutContainer{
   width: 100%;
   position: absolute;
-  left: -15%;
   .aboutImg{
       display: flex;
       flex-wrap: wrap;

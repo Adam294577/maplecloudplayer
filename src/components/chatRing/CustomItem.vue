@@ -86,8 +86,8 @@ export default {
     <div class="question q3">
         <h1>2.輸入ID</h1>
         <input 
-        @input="handGameID"
-        @keyup="checkInput"
+        @input.prevent="handGameID"
+        @keyup.prevent="checkInput"
         v-model="game_id"
         placeholder="輸入角色名稱"
         >
