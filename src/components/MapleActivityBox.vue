@@ -14,7 +14,7 @@ import Pandora from '@/components/MapleActivity/Pandora.vue'
 import starTable from '@/components/MapleActivity/starTable.vue'
 
 
-export default {
+export default { 
   components:{
     goldApple,
     fashion,
@@ -25,6 +25,7 @@ export default {
     frame,
     Pandora,
     starTable,
+    
   },
     setup(){
         // import All ActivityImg
