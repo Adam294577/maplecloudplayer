@@ -17,7 +17,7 @@ export default {
     </div>
     <div class="ProbabilityTable">
     <ul>
-        <h1 class="dressingTitle">男生</h1>
+        <h1 class="ProbabilityTitle">男生</h1>
         <li class="itemTitle"><span>主打美髮</span><span>機率</span></li>
         <li><span>剪影髮型</span><span>1.50%</span></li>
         <li><span>九尾狐髮型</span><span>1.50%</span></li>
@@ -46,7 +46,7 @@ export default {
 <li><span>黑色暗笑的臉型	</span><span>9.50%</span></li>
     </ul>
     <ul>
-        <h1 class="dressingTitle">女生</h1>
+        <h1 class="ProbabilityTitle">女生</h1>
         <li class="itemTitle"><span>主打美髮</span><span>機率</span></li>
 <li><span>黑色清純髮夾造型</span><span>	1.50%</span></li>
 <li><span>黑色九尾狐髮型</span><span>	1.50%</span></li>
@@ -72,7 +72,7 @@ export default {
 <li><span>黑色玻璃眼臉型	</span><span>9.50%</span></li>
 <li><span>黑色輕柔的臉型	</span><span>9.50%</span></li>
 <li><span>黑色上眼影臉型	</span><span>9.50%</span></li>
-<li><span>黑色瞭望的臉型	9</span><span>.50% </span></li>
+<li><span>黑色瞭望的臉型	</span><span>9.50% </span></li>
     </ul>
     </div>
     </template>

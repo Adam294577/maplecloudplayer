@@ -5,7 +5,7 @@
 </div>
 <div class="ProbabilityTable">
 <ul class="starList">
-    <h1 class="starTitle">星光錦囊</h1>
+    <h1 class="ProbabilityTitle">星光錦囊</h1>
     <li class="itemTitle">
              <span>重點項目</span>
              <span>機率</span>

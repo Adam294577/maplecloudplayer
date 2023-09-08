@@ -23,12 +23,12 @@ export default {
          <li class="appleItem">
              <span>露希妲耳環交換券</span>
              <span>0.5%</span>
-             <span>3%</span>
+             <span>3.00%</span>
          </li>
          <li class="appleItem">
              <span>死神的項鍊</span>
              <span>0.5%</span>
-             <span>3%</span>
+             <span>3.00%</span>
          </li>
      </ul>
      </div>

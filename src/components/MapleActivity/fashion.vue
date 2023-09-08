@@ -15,7 +15,7 @@ export default {
     </div>
     <div class="ProbabilityTable">
         <ul>
-            <h1 class="fashionTitle">閃亮銀河音樂會</h1>
+            <h1 class="ProbabilityTitle">閃亮銀河音樂會</h1>
             <li class="itemTitle"><span>項目</span><span>機率</span></li>
 <li><span>閃亮銀河</span><span>	0.90%</span></li>
 <li><span>銀河極光</span><span>	0.90%</span></li>
@@ -27,7 +27,7 @@ export default {
 <li><span>銀河迴音</span><span>	0.80%</span></li>
         </ul>
         <ul>
-            <h1 class="fashionTitle">閃亮宇宙探險隊</h1>
+            <h1 class="ProbabilityTitle">閃亮宇宙探險隊</h1>
             <li class="itemTitle"><span>項目</span><span>機率</span></li>
 <li><span>閃耀天線	</span><span>1.00%</span></li>
 <li><span>閃耀宇宙探險家(男)	</span><span>0.90%</span></li>

@@ -523,32 +523,12 @@ export default {
           }
         }
       }
-      &.cuteMos{
-
-      }
       &.fashion{
-        .fashionTitle{
-          background-color: #f1bf8a;
-          font-size: 22px;
-          text-align: center;
-          border: 1px solid;
-        }
         ul{
           max-width: 500px;          
-          li{
-            span{
-              width: 50%;
-            }
-          }
         }
       }
-      &.dressing{
-        .dressingTitle{
-          background-color: #f1bf8a;
-          font-size: 22px;
-          text-align: center;
-          border: 1px solid;          
-        }
+      &.dressing,&.fashion{
         ul{
           li{
             span{
@@ -559,12 +539,7 @@ export default {
 
       }
       &.Star{
-        .starTitle{
-          background-color: #f1bf8a;
-          font-size: 22px;
-          text-align: center;
-          border: 1px solid;          
-        }
+
         ul{
           max-width: 1400px;
           width: 24%;
@@ -581,22 +556,15 @@ export default {
           }
         }        
 
+      } 
+      &.fashion,&.dressing,&.Star{
+        .ProbabilityTitle{
+          background-color: #f1bf8a;
+          font-size: 22px;
+          text-align: center;
+          border: 1px solid;          
+        }
       }
-      &.pet{
-
-      }
-      &.cube{
-
-      }
-      &.crystal{
-
-      }
-      &.frame{
-
-      }
-      &.cart{
-
-      }   
     }
 
   }
@@ -613,9 +581,7 @@ export default {
   }
 }  
 
-.historyContainer{
-  
-}
+
 
 @media (max-width: 768px) { 
   .latestContainer{
@@ -647,32 +613,8 @@ export default {
   .latestContainer{
     .content{
       .ProbabilityBox{
-        .ProbabilityTable{
-
-          ul{
-            width: 90%;
-            margin: auto;
-            margin-top: 30px;
-            max-width: 500px;
-            
-            li{
-              border: 1px solid #000;
-              display: flex;
-              padding: 3px;
-              span{
-                text-align: center;
-                width: 33%;
-              }
-            }
-          }
-          
-        }   
-        &.fashion{
-          .fashionTitle{
-            font-size: 22px;
-            text-align: center;
-            border: 1px solid;
-          }
+ 
+        &.pet,&.cuteMos,&.fashion,&.dressing,&.Star{
           ul{
             li{
               span{
@@ -680,46 +622,14 @@ export default {
               }
             }
           }
-        }
-        &.dressing{
-          .dressingTitle{
-            font-size: 22px;
-            text-align: center;
-            border: 1px solid;          
-          }
-          ul{
-            li{
-              span{
-                width: 50%;
-              }
-            }
-          }          
-  
-        }                
-        &.Star{
-          .starTitle{
-            font-size: 22px;
-            text-align: center;
-            border: 1px solid;          
-          }
-          ul{
-            li{
-              span{
-                width: 50%;
-              }
-            }
-          }          
-  
-        }                
+        }                          
       }
 
     }
 
   }    
   .mapleActivity{
-    // border-radius: 0;
     width: 100vw;
-    // height: 100vh;
   }  
   .Activitydate{
     width: 100vw;
