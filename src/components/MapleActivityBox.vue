@@ -284,7 +284,7 @@ export default {
   cursor: pointer;
   position: fixed;
   right: 12vw;
-  bottom: 7vh;
+  bottom: 6vh;
   width: 40px;
   height: 40px;
   z-index: 1200;
