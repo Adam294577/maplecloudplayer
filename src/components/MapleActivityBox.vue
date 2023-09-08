@@ -14,7 +14,7 @@ import Pandora from '@/components/MapleActivity/Pandora.vue'
 import starTable from '@/components/MapleActivity/starTable.vue'
 
 
-export default {
+export default { 
   components:{
     goldApple,
     fashion,
@@ -25,6 +25,7 @@ export default {
     frame,
     Pandora,
     starTable,
+    
   },
     setup(){
         // import All ActivityImg
@@ -79,13 +80,13 @@ export default {
                 {idx:6 ,  zoomIn:false , key:"魔法畫框" ,class: "frameTag" , url: `${ActivityImgArr[6].icon}`, act: false,show: false },
                 {idx:7 ,  zoomIn:false , key:"潘朵拉箱子" ,class: "pandoraTag" , url: `${ActivityImgArr[7].icon}`, act: false,show: false },
                 {idx:8 ,  zoomIn:false , key:"月光水晶" ,class: "crystalTag" , url: `${ActivityImgArr[8].icon}`, act: false,show: false },
-                {idx:9 ,  zoomIn:false , key:"愛美組合包" ,class: "beautyTag" , url: `${ActivityImgArr[9].icon}`, act: false,show: true },
+                {idx:9 ,  zoomIn:false , key:"愛美組合包" ,class: "beautyTag" , url: `${ActivityImgArr[9].icon}`, act: false,show: false },
                 {idx:10 , zoomIn:false ,  key:"星光錦囊" ,class: "starTag" , url: `${ActivityImgArr[10].icon}`, act: false,show: false },
                 {idx:11 , zoomIn:false ,  key:"結合方塊" ,class: "combineTag" , url: `${ActivityImgArr[11].icon}`, act: false,show: false },
                 {idx:12 , zoomIn:false ,  key:"時裝套組" ,class: "frameSetTag" , url: `${ActivityImgArr[12].icon}`, act: false,show: false },
                 {idx:13 , zoomIn:false ,  key:"覺醒星火" ,class: "sparkTag" , url: `${ActivityImgArr[13].icon}`, act: false,show: false },
-                {idx:14 , zoomIn:false ,  key:"盛夏購物季" ,class: "consumptionTag" , url: `${ActivityImgArr[14].icon}`, act: false,show: true },
-                {idx:15 , zoomIn:true ,  key:"恢復附加方塊" ,class: "recoverTag" , url: `${ActivityImgArr[15].icon}`, act: false,show: true },
+                {idx:14 , zoomIn:false ,  key:"咖波in楓之谷" ,class: "consumptionTag" , url: `${ActivityImgArr[14].icon}`, act: false,show: true },
+                {idx:15 , zoomIn:true ,  key:"恢復附加方塊" ,class: "recoverTag" , url: `${ActivityImgArr[15].icon}`, act: false,show: false },
             ])
             const ActivitySelected = ref([{key:"黃金蘋果", bannerUrl: `${ActivityImgArr[0].banner}`,bannerZoomIn: false}] )
 
@@ -178,6 +179,11 @@ export default {
                 </div>
                 <div class="latestContainer">
                     <div class="title">近期官網活動</div>
+                    
+            <div class="Activitydate">
+                <span class="txt">最後更新日期</span>
+                <span class="txt">2023.09.08</span>
+            </div>                      
                     <div class="contentTag">
                         <li 
                         v-for="list in ActivityTagData"
@@ -193,11 +199,18 @@ export default {
                     </div>
     
                     <div class="content">
+     
                        <img :class="['banner',{'zoomIn': ActivitySelected[0].bannerZoomIn }]" :src="ActivitySelected[0].bannerUrl" alt="">
+                      <!-- 咖波活動 -->
+                      <div class="capoo" v-show="ActivitySelected[0].key === '咖波in楓之谷'">
+                       <span>詳細活動: <a target="_blank" href="https://maplestory.beanfun.com/bulletin?bid=66706">連結</a></span>
+                      </div>
+
                        <!-- 黃金蘋果 -->
                        <div class="ProbabilityBox goldApple" v-show="ActivitySelected[0].key === '黃金蘋果'">
                        <goldApple/>
                       </div>
+
      
                       <!-- 時尚箱 -->
                        <div class="ProbabilityBox fashion" v-show=" ActivitySelected[0].key === '時尚隨機箱' ">
@@ -237,10 +250,7 @@ export default {
                 <div class="historyContainer" v-show="false">
                 </div>
             </div>
-            <div class="Activitydate">
-                <span class="title">最後更新日期</span>
-                <span class="txt">2023.08.24</span>
-            </div>  
+
 </div>   
 </template>
 
@@ -275,7 +285,7 @@ export default {
   cursor: pointer;
   position: fixed;
   right: 12vw;
-  top: 91vh;
+  bottom: 6vh;
   width: 40px;
   height: 40px;
   z-index: 1200;
@@ -285,7 +295,7 @@ export default {
   opacity: 0;
   &.show{
     transition: 0.2s;
-    opacity: 1;
+    opacity: 0.7;
   }
   span{
     font-weight: bold;
@@ -316,7 +326,7 @@ export default {
     // border: 1px solid #FFF;
     background-color: #e2ccb5;
     border-radius: 10px;
-    padding-bottom: 50px;
+    padding-bottom: 5rem;
 
   &::-webkit-scrollbar{
     width: 5px;
@@ -353,24 +363,11 @@ export default {
     }
   }
 }
-.Activitydate{
-  width: 80vw;
-  height: 3vh;
-  position: fixed;
-  bottom: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #e2ccb5;
-  z-index: 1111;
-  padding-left: 20px;
-  border-radius: 0 0 10px 10px;
-  span{
-
-  }
-  .txt{
-    padding-left: 10px;
-  }
-}  
+.capoo{
+  text-align: center;
+  padding-top: 1rem;
+  font-weight: bold;
+}
 .latestContainer{
   .title{
     padding-top: 1rem;
@@ -431,6 +428,7 @@ export default {
     }
   }
   .content{
+    
     .banner{
       display: block;
       // border: 1px solid #F00;
@@ -526,32 +524,12 @@ export default {
           }
         }
       }
-      &.cuteMos{
-
-      }
       &.fashion{
-        .fashionTitle{
-          background-color: #f1bf8a;
-          font-size: 22px;
-          text-align: center;
-          border: 1px solid;
-        }
         ul{
           max-width: 500px;          
-          li{
-            span{
-              width: 50%;
-            }
-          }
         }
       }
-      &.dressing{
-        .dressingTitle{
-          background-color: #f1bf8a;
-          font-size: 22px;
-          text-align: center;
-          border: 1px solid;          
-        }
+      &.dressing,&.fashion{
         ul{
           li{
             span{
@@ -562,12 +540,7 @@ export default {
 
       }
       &.Star{
-        .starTitle{
-          background-color: #f1bf8a;
-          font-size: 22px;
-          text-align: center;
-          border: 1px solid;          
-        }
+
         ul{
           max-width: 1400px;
           width: 24%;
@@ -584,29 +557,32 @@ export default {
           }
         }        
 
+      } 
+      &.fashion,&.dressing,&.Star{
+        .ProbabilityTitle{
+          background-color: #f1bf8a;
+          font-size: 22px;
+          text-align: center;
+          border: 1px solid;          
+        }
       }
-      &.pet{
-
-      }
-      &.cube{
-
-      }
-      &.crystal{
-
-      }
-      &.frame{
-
-      }
-      &.cart{
-
-      }   
     }
+
   }
 
 }
-.historyContainer{
-  
-}
+.Activitydate{
+  text-align: center;
+  span{
+    font-size: 0.8rem;
+  }
+  .txt{
+    padding-top: 1rem;
+    padding-left: 10px;
+  }
+}  
+
+
 
 @media (max-width: 768px) { 
   .latestContainer{
@@ -638,32 +614,8 @@ export default {
   .latestContainer{
     .content{
       .ProbabilityBox{
-        .ProbabilityTable{
-
-          ul{
-            width: 90%;
-            margin: auto;
-            margin-top: 30px;
-            max-width: 500px;
-            
-            li{
-              border: 1px solid #000;
-              display: flex;
-              padding: 3px;
-              span{
-                text-align: center;
-                width: 33%;
-              }
-            }
-          }
-          
-        }   
-        &.fashion{
-          .fashionTitle{
-            font-size: 22px;
-            text-align: center;
-            border: 1px solid;
-          }
+ 
+        &.pet,&.cuteMos,&.fashion,&.dressing,&.Star{
           ul{
             li{
               span{
@@ -671,42 +623,19 @@ export default {
               }
             }
           }
-        }
-        &.dressing{
-          .dressingTitle{
-            font-size: 22px;
-            text-align: center;
-            border: 1px solid;          
-          }
-          ul{
-            li{
-              span{
-                width: 50%;
-              }
-            }
-          }          
-  
-        }                
-        &.Star{
-          .starTitle{
-            font-size: 22px;
-            text-align: center;
-            border: 1px solid;          
-          }
-          ul{
-            li{
-              span{
-                width: 50%;
-              }
-            }
-          }          
-  
-        }                
+        }                          
       }
 
     }
 
   }    
+  .mapleActivity{
+    width: 100vw;
+  }  
+  .Activitydate{
+    width: 100vw;
+    bottom: 3vh;
+  }
 }
 
 </style>
