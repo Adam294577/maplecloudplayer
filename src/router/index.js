@@ -5,10 +5,6 @@ import NotFound from '../views/NotFound.vue'
 
 import LogImg from '@/assets/logo/metaImg.png'
 
-console.log(LogImg);
-
-
-
 const routes = [
   {
     path: '/',
@@ -58,21 +54,54 @@ const routes = [
           title: "聊天模擬器",
           metaTags: [
             {
-              name: 'description',
-              content: '簡單的楓谷聊天模擬器'
-            },
-            {
-              property: 'og:description',
-              content: '簡單的楓谷聊天模擬器'
+              property: 'og:type',
+              content: 'website'
             },
             {
               property: 'og:title',
               content: '聊天模擬器'
             },
+
+            {
+              property: 'og:description',
+              content: '簡單的楓谷聊天模擬器'
+            },
+ 
+
             {
               property: 'og:image',
               content: LogImg
+            },            
+            {
+              name: 'twitter:card',
+              content: 'summary'
             },
+            {
+              name: 'twitter:site',
+              content: '@maplecloudplayer'
+            },
+            {
+              name: 'description',
+              content: '簡單的楓谷聊天模擬器'
+            },
+            {
+              name: 'twitter:title',
+              content: '聊天模擬器'
+            },
+            {
+              name: 'twitter:description',
+              content: '簡單的楓谷聊天模擬器'
+            },
+            {
+              name: 'twitter:image',
+              content: LogImg
+            },
+            {
+              name: 'twitter:image:alt',
+              content: '雲玩家'
+            },            
+
+
           ]    
         },          
       },
