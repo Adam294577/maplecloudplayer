@@ -54,6 +54,10 @@ const routes = [
           title: "聊天模擬器",
           metaTags: [
             {
+              property: 'og:type',
+              content: 'website'
+            },
+            {
               property: 'og:title',
               content: '聊天模擬器'
             },

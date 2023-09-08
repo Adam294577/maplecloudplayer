@@ -6,9 +6,9 @@
     <div class="ProbabilityTable">
     <ul>
         <li class="itemTitle"><span>重點項目</span><span>機率</span></li>
-        <li><span>可愛混沌寵物</span><span>0.70%</span></li>
-        <li><span>可愛窮奇寵物</span><span>0.70%</span></li>
-        <li><span>可愛檮杌寵物</span><span>0.70%</span></li>
+        <li><span>萌寵小貓咪</span><span>0.70%</span></li>
+        <li><span>萌寵鸚鵡</span><span>0.70%</span></li>
+        <li><span>萌寵小狗</span><span>0.70%</span></li>
     </ul>
     </div>
 </template>

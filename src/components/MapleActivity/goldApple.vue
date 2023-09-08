@@ -21,14 +21,14 @@ export default {
              <span>金箱子機率</span>
          </li>
          <li class="appleItem">
-             <span>凝聚的戒指交換券</span>
-             <span>0.3%</span>
-             <span>14%</span>
+             <span>露希妲耳環交換券</span>
+             <span>0.5%</span>
+             <span>3%</span>
          </li>
          <li class="appleItem">
-             <span>堅定意志成果椅子交換劵</span>
+             <span>死神的項鍊</span>
              <span>0.5%</span>
-             <span>6%</span>
+             <span>3%</span>
          </li>
      </ul>
      </div>

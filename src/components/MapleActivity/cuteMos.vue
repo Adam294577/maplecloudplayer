@@ -6,11 +6,12 @@
                             <div class="ProbabilityTable">
                             <ul>
                                 <li class="itemTitle"><span>重點項目</span><span>機率</span></li>
-<li><span>萊頓</span>	<span>1.00%</span></li>
-<li><span>史頓畢</span>	<span>1.00%</span></li>
-<li><span>庫派德</span>	<span>1.00%</span></li>
-<li><span>達朗紐</span>	<span>1.00%</span></li>
-<li><span>龍人</span>	<span>0.50%</span></li>
+<li><span>害羞的幽靈</span><span>	1.00%</span></li>
+<li><span>想長大的幽靈</span><span>	1.00%</span></li>
+<li><span>有點生氣的幽靈</span><span>	1.00%</span></li>
+<li><span>大塊頭幽靈</span><span>	1.00%</span></li>
+<li><span>生氣的幽靈</span><span>	0.50%</span></li>
+<li><span>長大的幽靈</span><span>	0.50%</span></li>
                             </ul>
                             </div>
 </template>

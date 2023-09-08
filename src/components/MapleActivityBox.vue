@@ -79,13 +79,13 @@ export default {
                 {idx:6 ,  zoomIn:false , key:"魔法畫框" ,class: "frameTag" , url: `${ActivityImgArr[6].icon}`, act: false,show: false },
                 {idx:7 ,  zoomIn:false , key:"潘朵拉箱子" ,class: "pandoraTag" , url: `${ActivityImgArr[7].icon}`, act: false,show: false },
                 {idx:8 ,  zoomIn:false , key:"月光水晶" ,class: "crystalTag" , url: `${ActivityImgArr[8].icon}`, act: false,show: false },
-                {idx:9 ,  zoomIn:false , key:"愛美組合包" ,class: "beautyTag" , url: `${ActivityImgArr[9].icon}`, act: false,show: true },
+                {idx:9 ,  zoomIn:false , key:"愛美組合包" ,class: "beautyTag" , url: `${ActivityImgArr[9].icon}`, act: false,show: false },
                 {idx:10 , zoomIn:false ,  key:"星光錦囊" ,class: "starTag" , url: `${ActivityImgArr[10].icon}`, act: false,show: false },
                 {idx:11 , zoomIn:false ,  key:"結合方塊" ,class: "combineTag" , url: `${ActivityImgArr[11].icon}`, act: false,show: false },
                 {idx:12 , zoomIn:false ,  key:"時裝套組" ,class: "frameSetTag" , url: `${ActivityImgArr[12].icon}`, act: false,show: false },
                 {idx:13 , zoomIn:false ,  key:"覺醒星火" ,class: "sparkTag" , url: `${ActivityImgArr[13].icon}`, act: false,show: false },
-                {idx:14 , zoomIn:false ,  key:"盛夏購物季" ,class: "consumptionTag" , url: `${ActivityImgArr[14].icon}`, act: false,show: true },
-                {idx:15 , zoomIn:true ,  key:"恢復附加方塊" ,class: "recoverTag" , url: `${ActivityImgArr[15].icon}`, act: false,show: true },
+                {idx:14 , zoomIn:false ,  key:"咖波in楓之谷" ,class: "consumptionTag" , url: `${ActivityImgArr[14].icon}`, act: false,show: true },
+                {idx:15 , zoomIn:true ,  key:"恢復附加方塊" ,class: "recoverTag" , url: `${ActivityImgArr[15].icon}`, act: false,show: false },
             ])
             const ActivitySelected = ref([{key:"黃金蘋果", bannerUrl: `${ActivityImgArr[0].banner}`,bannerZoomIn: false}] )
 
@@ -239,7 +239,7 @@ export default {
             </div>
             <div class="Activitydate">
                 <span class="title">最後更新日期</span>
-                <span class="txt">2023.08.24</span>
+                <span class="txt">2023.09.08</span>
             </div>  
 </div>   
 </template>
@@ -707,6 +707,15 @@ export default {
     }
 
   }    
+  .mapleActivity{
+    // border-radius: 0;
+    width: 100vw;
+    // height: 100vh;
+  }  
+  .Activitydate{
+    width: 100vw;
+    bottom: 3vh;
+  }
 }
 
 </style>
