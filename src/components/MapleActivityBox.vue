@@ -178,6 +178,11 @@ export default {
                 </div>
                 <div class="latestContainer">
                     <div class="title">近期官網活動</div>
+                    
+            <div class="Activitydate">
+                <span class="txt">最後更新日期</span>
+                <span class="txt">2023.09.08</span>
+            </div>                      
                     <div class="contentTag">
                         <li 
                         v-for="list in ActivityTagData"
@@ -193,11 +198,18 @@ export default {
                     </div>
     
                     <div class="content">
+     
                        <img :class="['banner',{'zoomIn': ActivitySelected[0].bannerZoomIn }]" :src="ActivitySelected[0].bannerUrl" alt="">
+                      <!-- 咖波活動 -->
+                      <div class="capoo" v-show="ActivitySelected[0].key === '咖波in楓之谷'">
+                       <span>詳細活動: <a target="_blank" href="https://maplestory.beanfun.com/bulletin?bid=66706">連結</a></span>
+                      </div>
+
                        <!-- 黃金蘋果 -->
                        <div class="ProbabilityBox goldApple" v-show="ActivitySelected[0].key === '黃金蘋果'">
                        <goldApple/>
                       </div>
+
      
                       <!-- 時尚箱 -->
                        <div class="ProbabilityBox fashion" v-show=" ActivitySelected[0].key === '時尚隨機箱' ">
@@ -237,10 +249,7 @@ export default {
                 <div class="historyContainer" v-show="false">
                 </div>
             </div>
-            <div class="Activitydate">
-                <span class="title">最後更新日期</span>
-                <span class="txt">2023.09.08</span>
-            </div>  
+
 </div>   
 </template>
 
@@ -275,7 +284,7 @@ export default {
   cursor: pointer;
   position: fixed;
   right: 12vw;
-  top: 91vh;
+  bottom: 7vh;
   width: 40px;
   height: 40px;
   z-index: 1200;
@@ -285,7 +294,7 @@ export default {
   opacity: 0;
   &.show{
     transition: 0.2s;
-    opacity: 1;
+    opacity: 0.7;
   }
   span{
     font-weight: bold;
@@ -316,7 +325,7 @@ export default {
     // border: 1px solid #FFF;
     background-color: #e2ccb5;
     border-radius: 10px;
-    padding-bottom: 50px;
+    padding-bottom: 5rem;
 
   &::-webkit-scrollbar{
     width: 5px;
@@ -353,24 +362,11 @@ export default {
     }
   }
 }
-.Activitydate{
-  width: 80vw;
-  height: 3vh;
-  position: fixed;
-  bottom: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #e2ccb5;
-  z-index: 1111;
-  padding-left: 20px;
-  border-radius: 0 0 10px 10px;
-  span{
-
-  }
-  .txt{
-    padding-left: 10px;
-  }
-}  
+.capoo{
+  text-align: center;
+  padding-top: 1rem;
+  font-weight: bold;
+}
 .latestContainer{
   .title{
     padding-top: 1rem;
@@ -431,6 +427,7 @@ export default {
     }
   }
   .content{
+    
     .banner{
       display: block;
       // border: 1px solid #F00;
@@ -601,9 +598,21 @@ export default {
 
       }   
     }
+
   }
 
 }
+.Activitydate{
+  text-align: center;
+  span{
+    font-size: 0.8rem;
+  }
+  .txt{
+    padding-top: 1rem;
+    padding-left: 10px;
+  }
+}  
+
 .historyContainer{
   
 }
