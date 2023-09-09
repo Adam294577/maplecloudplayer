@@ -59,6 +59,7 @@ export default {
 
 // about
 .aboutContainer{
+  font-family: "微軟正黑體";
   width: 100%;
   position: absolute;
   margin-top: 120px;

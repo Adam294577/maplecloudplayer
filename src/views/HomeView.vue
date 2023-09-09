@@ -160,6 +160,7 @@ export default {
   height: 75vh;
   overflow: hidden;
   overflow-y: scroll;
+  font-family: "微軟正黑體";
 
   .topicTag{
     display: none;

@@ -31,7 +31,7 @@ export default {
     margin: 0;
     box-sizing: border-box;
     list-style-type: none;
-    font-family: "微軟正黑體";
+    
 }
 body{
     background-color: #222;

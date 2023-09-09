@@ -30,7 +30,7 @@ export default {
                 <div class="txt_container">
                     <div class="Txtcontent">
                         <span class="idBox">{{game_id}}</span> 
-                        <span ref="msgRef" class="txt">{{chat_msg}}</span>
+                        <span style="font-family: PMingLiU;" ref="msgRef" class="txt">{{chat_msg}}</span>
                     </div>
                 </div>
             </div>

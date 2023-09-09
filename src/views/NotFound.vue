@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .noFoundContainer{
+    font-family: "微軟正黑體";
     width: 500px;
     height: 500px;
     margin: auto;

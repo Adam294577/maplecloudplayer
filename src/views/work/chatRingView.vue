@@ -59,6 +59,7 @@ export default {
 
 
 <style lang="scss" scoped>
+
 .ChatSyscontainer{
   background-size: cover;
   // background-attachment: fixed;
